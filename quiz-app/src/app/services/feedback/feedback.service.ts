@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { IErrorReport } from 'src/app/models/error_report/IErrorReport';
+import { IFeedback } from 'src/app/models/feedback/IFeedback.model';
 
 const API_URL = `${location.origin}/api/v1/error_reports/`;
 
 /**
- * Сервис для работы с сообщениями об ошибках
+ * Сервис для работы с обратной связью
  */
 @Injectable()
-export class ErrorReportsService {
+export class FeedbackService {
 
   constructor(private http: HttpClient) { }
 
@@ -18,7 +18,7 @@ export class ErrorReportsService {
    * Создает сообщение об ошибке
    * @param report;
    */
-  create(report: IErrorReport): Observable<void> {
+  create(report: IFeedback): Observable<void> {
     return this.http.post(API_URL, report).pipe(map(() => undefined));
   }
 
@@ -33,7 +33,7 @@ export class ErrorReportsService {
   /**
    * Получения списка сообщений об ошибках
    */
-  getList(): Observable<IErrorReport[]> {
-    return this.http.get(API_URL).pipe(map((result: IErrorReport[]) => result));
+  getList(): Observable<IFeedback[]> {
+    return this.http.get(API_URL).pipe(map((result: IFeedback[]) => result));
   }
 }

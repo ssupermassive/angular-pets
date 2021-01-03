@@ -1,22 +1,22 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Data } from '@angular/router';
 import { QuestionDialogOpenerService } from 'src/app/questions';
-import { ErrorReportsService } from 'src/app/services/error-reports.service';
-import { IErrorReport } from 'src/app/models/error_report/IErrorReport';
+import { FeedbackService } from 'src/app/services/feedback';
+import { IFeedback } from 'src/app/models/feedback/IFeedback.model';
 import { Subscription } from 'rxjs';
 
 /**
  * Список сообщений об ошибках
  */
 @Component({
-  selector: 'ft-error-reports',
-  templateUrl: './error-reports.component.html',
-  styleUrls: ['./error-reports.component.scss'],
+  selector: 'ft-feedback',
+  templateUrl: './feedback.component.html',
+  styleUrls: ['./feedback.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ErrorReportsComponent implements OnInit, OnDestroy {
+export class FeedbackComponent implements OnInit, OnDestroy {
 
-  _source: IErrorReport[];
+  _source: IFeedback[];
   _itemActions: any[] = [
     {
       icon: 'close',
@@ -31,7 +31,7 @@ export class ErrorReportsComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private questionDialog: QuestionDialogOpenerService,
-    private errorReportsService: ErrorReportsService,
+    private feedbackService: FeedbackService,
     private changeDetector: ChangeDetectorRef
   ) { }
 
@@ -51,7 +51,7 @@ export class ErrorReportsComponent implements OnInit, OnDestroy {
    * Обработка клика по записи
    * @param item;
    */
-  _itemClick(item: IErrorReport): void {
+  _itemClick(item: IFeedback): void {
     this._subscription.add(
       this.questionDialog.open({
         feedback: item.text,
@@ -64,9 +64,9 @@ export class ErrorReportsComponent implements OnInit, OnDestroy {
    * Операция удаления записи
    * @param item;
    */
-  private _delete(item: IErrorReport): void {
+  private _delete(item: IFeedback): void {
     this._subscription.add(
-      this.errorReportsService.remove(item.id).subscribe(() => {
+      this.feedbackService.remove(item.id).subscribe(() => {
         this._reload();
       })
     );
@@ -77,7 +77,7 @@ export class ErrorReportsComponent implements OnInit, OnDestroy {
    */
   private _reload(): void {
     this._subscription.add(
-      this.errorReportsService.getList().subscribe((data: IErrorReport[]) => {
+      this.feedbackService.getList().subscribe((data: IFeedback[]) => {
         this._source = data;
         this.changeDetector.markForCheck();
       })

@@ -19,6 +19,6 @@ export class AdminService {
 
 
    getQuestions(): Observable<object[]> {
-      return this.questionService.getAdminList();
+      return this.questionService.getList();
    }
 }

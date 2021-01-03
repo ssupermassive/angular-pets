@@ -1,15 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+
 import { Question, IQuestion } from 'src/app/models/questions';
 import { IQuestionsQueryFilter } from 'src/app/models/questions/IQuestionsQueryFIlter';
-import { addParamsToUrl, transformToQuestion } from 'src/app/core/utils';
+import { LocalStorageService } from 'src/app/core';
 
-/**
- * Адресс сервиса БЛ
- */
-const QUESTIONS_API_URL = `${location.origin}/api/v1/questions/`;
+const LOCAL_STORAGE_TOKEN = 'FT_QUESTIONS_DATA';
+const QUESTIONS: IQuestion[] = [];
 
 /**
  * Сервис, отвечающий за работу с вопросами
@@ -18,7 +15,18 @@ const QUESTIONS_API_URL = `${location.origin}/api/v1/questions/`;
 @Injectable()
 export class QuestionsService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private localStorage: LocalStorageService) { 
+    const storageData = this.localStorage.getItem(LOCAL_STORAGE_TOKEN);
+
+    if (storageData) {
+      this.data = storageData;
+      return;
+    }
+
+    this.data = QUESTIONS;
+  }
+
+  private data: IQuestion[];
 
   /**
    * Создание вопроса
@@ -26,8 +34,14 @@ export class QuestionsService {
    * @param filter
    */
   public create(question: IQuestion): Observable<any> {
-    return this.http.post(QUESTIONS_API_URL, question).pipe(
-      map((result) => result));
+
+    const q = new Question(question);
+    q.id = Date.now();
+    this.data.push(q);
+
+    this.localStorage.setItem(LOCAL_STORAGE_TOKEN, this.data);
+
+    return of(q);
   }
 
   /**
@@ -35,10 +49,7 @@ export class QuestionsService {
    * @param id
    */
   public read(id: number): Observable<Question> {
-    return this.http.get(`${QUESTIONS_API_URL}/${id}`).pipe(
-      map((question: IQuestion) => {
-        return transformToQuestion(question);
-      }));
+    return of(new Question(this.data.find((q: IQuestion) => q.id === id)));
   }
 
   /**
@@ -46,9 +57,10 @@ export class QuestionsService {
    * @param id
    */
   public delete(id: number): Observable<boolean> {
-    return this.http.delete(`${QUESTIONS_API_URL}/${id}`).pipe(
-      map((result: boolean) => result)
-    );
+    this.data = this.data.filter((c: IQuestion) => c.id !== id);
+    this.localStorage.setItem(LOCAL_STORAGE_TOKEN, this.data);
+
+    return of(true);
   }
 
   /**
@@ -56,21 +68,44 @@ export class QuestionsService {
    * @param question
    */
   public update(question: IQuestion): Observable<any> {
-    return this.http.put(QUESTIONS_API_URL, question).pipe(
-      map((result) => result));
+    this.data = this.data.map((q: IQuestion) => {
+      if (q.id === question.id) {
+        return new Question(question);
+      }
+
+      return new Question(q);
+    });
+
+    this.localStorage.setItem(LOCAL_STORAGE_TOKEN, this.data);
+
+    return of(true);
   }
 
   /**
    * Получение списка категорий для кабинета администратора
    */
-  getAdminList(filter: IQuestionsQueryFilter = {}): Observable<object[]> {
+  getList(filter: IQuestionsQueryFilter = {}): Observable<Question[]> {
+    let data = this.data;
 
-    const url = new URL(`${QUESTIONS_API_URL}admin`);
-    addParamsToUrl(url, filter);
+    if ('category' in filter) {
+      data = data.filter(
+        (q: IQuestion) => !!(q.category.id === filter.category || q.subcategory?.id === filter.category)
+      );
+    }
 
-    return this.http.get(url.href).pipe(
-      map((questions: object[]) => questions)
-    );
+    if ('publish' in filter) {
+      data = data.filter(
+        (q: IQuestion) => q.publish === filter.publish
+      );
+    }
+
+    if (filter.random) {
+      data = data.sort(() => {
+        return Math.random() - Math.random();
+      })
+    }
+
+    return of(data.map((q: IQuestion) => new Question(q)));
   }
 
   /**
@@ -79,8 +114,15 @@ export class QuestionsService {
    * @param publish
    */
   public changePublish(id: number, publish: boolean): Observable<boolean> {
-    return this.http.put(`${QUESTIONS_API_URL}changepublish`, { id, publish }).pipe(
-      map((result: boolean) => result));
+    this.data = this.data.map((q: IQuestion) => {
+      if(q.id === id) {
+        q.publish = publish;
+      }
+      return q;
+    });
+
+    this.localStorage.setItem(LOCAL_STORAGE_TOKEN, this.data);
+    return of(true);
   }
 
   /**
@@ -89,22 +131,15 @@ export class QuestionsService {
    * @param publish
    */
   changePublishMass(ids: number[], publish: boolean): Observable<boolean> {
-    return this.http.put(`${QUESTIONS_API_URL}changepublish`, { ids, publish }).pipe(
-      map((result: boolean) => result));
-  }
+    this.data = this.data.map((q: IQuestion) => {
+      if(ids.includes(q.id)) {
+        q.publish = publish;
+      }
+      return q;
+    });
 
-  /**
-   * Массовое изменение категории вопросов
-   * @param ids;
-   * @param categoryId;
-   */
-  changeCategoryMass(ids: number[], category: number): Observable<boolean> {
-    return this.http.put(`${QUESTIONS_API_URL}changecategory`, { ids, category }).pipe(
-      map((result: boolean) => result));
-  }
-
-  resetImage(id: number): Observable<void> {
-    return this.http.put(`${QUESTIONS_API_URL}resetimage`, {id}).pipe(map(() => undefined));
+    this.localStorage.setItem(LOCAL_STORAGE_TOKEN, this.data);
+    return of(true);
   }
 }
 

@@ -12,7 +12,6 @@ import {
 import { ActivatedRoute, Data } from '@angular/router';
 import { QuizControllerService, LocalStorageService } from 'src/app/core';
 import { ICategory } from 'src/app/models/categories';
-import { AuthService } from 'src/app/core/auth/auth-service';
 import { FileService } from 'src/app/services/file.service';
 import {
   trigger,
@@ -102,7 +101,6 @@ export class HomeComponent implements OnInit, AfterContentInit, OnDestroy {
   }
 
   constructor(
-    public authService: AuthService,
     public fileService: FileService,
     private localStorage: LocalStorageService,
     private quizController: QuizControllerService,

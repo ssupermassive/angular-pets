@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
 import { Observable} from 'rxjs';
-import { QuizService } from 'src/app/core/quiz/quiz.service';
 import { ActivatedRouteSnapshot } from '@angular/router'
-
+import { QuestionsService } from 'src/app/services/questions';
 
 /**
  * Сервис, осуществляющий предзапрос данных для кабинете администратора
@@ -12,9 +11,13 @@ import { ActivatedRouteSnapshot } from '@angular/router'
 @Injectable()
 export class TestingResolver implements Resolve<any> {
 
-  constructor(private quizService: QuizService) { }
+  constructor(private questionsService: QuestionsService) { }
 
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    return this.quizService.getQuestionsList(route.params['category']);
+    return this.questionsService.getList({
+      publish: true,
+      random: true,
+      category: Number(route.params['category'])
+    });
   }
 }

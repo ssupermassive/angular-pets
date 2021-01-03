@@ -8,9 +8,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { AuthErrorInterceptor } from './core/auth/auth-error-interceptor';
-import { AuthInterceptor } from './core/auth/auth-interceptor';
-
 @NgModule({
   declarations: [
     AppComponent
@@ -23,8 +20,6 @@ import { AuthInterceptor } from './core/auth/auth-interceptor';
     HighlightModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthErrorInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     {
       provide: HIGHLIGHT_OPTIONS,
       useValue: {

@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, ViewChild, TemplateRef, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/core/auth/auth-service';
 
 interface IHeaderButtonConfig {
   userButton?: boolean;
@@ -29,19 +28,10 @@ export class HeaderComponent implements OnInit {
   _headerButtonsConfig: IHeaderButtonConfig;
 
   constructor(
-    public router: Router,
-    protected authService: AuthService
+    public router: Router
   ) { }
 
   ngOnInit(): void {
     this._headerButtonsConfig = { ...DEFAULT_BUTTONS_CONFIG, ...this.buttonsConfig }
-  }
-
-  /**
-   * Обработка клика на кнопку "Выйти"
-   */
-  _logout(): void {
-    this.authService.logout();
-    location.reload();
   }
 }

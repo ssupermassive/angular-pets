@@ -14,8 +14,9 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input' ;
 import {TextFieldModule} from '@angular/cdk/text-field';
 import {PageModule} from 'src/app/components/page';
-import {ErrorReportsService} from 'src/app/services/error-reports.service';
+import {FeedbackService} from 'src/app/services/feedback';
 import {ScrollContainerModule} from 'src/app/components/scroll-container'
+import {QuestionsService} from 'src/app/services/questions';
 
 const routes = [
   {
@@ -50,8 +51,10 @@ const routes = [
   providers: [
     TestingResolver,
     TestingStartGuard,
+    QuestionsService,
     CanDeactivateGuard,
-    ErrorReportsService
+    FeedbackService,
+
   ]
 })
 export class TestingModule { }

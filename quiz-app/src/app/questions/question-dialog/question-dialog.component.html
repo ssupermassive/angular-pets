@@ -78,25 +78,16 @@
                                 <div>
                                         <mat-icon class="ft-QuestionDialog__сodePreview-toggle" (click)="toggleCodePreview()"
                                                 title="Предпросмотр кода" *ngIf="codeAreaExpand">tv</mat-icon>
-                                        <ft-file-selection-button class="ft-QuestionDialog__attachButton"
-                                                *ngIf="canEditImage && !imageKey && codeAreaExpand"
-                                                (fileChoosed)="fileChoosedHandler($event)">
-                                        </ft-file-selection-button>
                                 </div>
                         </div>
                         <!-- Код вопроса -->
                         <div *ngIf="codeAreaExpand"
-                                class="ft-flexbox {{ canEditImage ? 'ft-QuestionDialog__codeWithImage' : 'ft-QuestionDialog__codeWithoutImage' }}">
+                                class="ft-flexbox ft-QuestionDialog__codeWithoutImage">
                                 <code *ngIf="showCodePreview" class="ft-QuestionDialog__сodePreview"
                                         [highlight]="_code.value"></code>
                                 <textarea *ngIf="!showCodePreview" placeholder="Код..." [cdkTextareaAutosize] cdkAutosizeMinRows="8" cdkAutosizeMaxRows="8"
                                         class="ft-QuestionDialog__code ft-QuestionDialog__areatext ft-QuestionDialog__form-textField-autoresize ft-flex-shrink-1 ft-flex-grow-1"
                                         formControlName="code"></textarea>
-                                <ft-image-selector *ngIf="canEditImage && !!imageKey" [width]="330" [height]="198"
-                                        (imageChanged)="_imageChangedHandler($event)" [key]="imageKey"
-                                        [folder]="imageFolder"
-                                        class="ft-QuestionDialog__image ft-flex-shrink-1 ft-flex-grow-1">
-                                </ft-image-selector>
                         </div>
                 </div>
                 <!--Пояснение-->

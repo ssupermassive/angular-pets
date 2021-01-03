@@ -8,11 +8,6 @@ import { Question } from 'src/app/models/questions/Question';
 export interface IDialogOptions {
 
     /**
-     * Можно ли редактировать/прикреплять изображение на диалоге
-     */
-    canEditImage?: boolean;
-
-    /**
      * Категория, которая будет выбранна при открытии диалога
      */
     selectedCategory?: IBaseCategory;

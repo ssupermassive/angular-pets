@@ -22,7 +22,6 @@ export class QuestionDialogOpenerService {
   open(options: IDialogOptions): Observable<IQuestionEditResult> {
 
     const data = {
-      canEditImage: options.canEditImage,
       feedback: options.feedback,
       selectedCategory: options.selectedCategory,
       addCompleteTemplate: options.addCompleteTemplate,

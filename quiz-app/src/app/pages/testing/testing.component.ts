@@ -4,7 +4,7 @@ import { QuizControllerService } from 'src/app/core';
 import { Question } from 'src/app/models/questions';
 import { CanComponentDeactivate } from 'src/app/core/guards/CanComponentDeactivate';
 import { ConfirmationService } from 'src/app/components/confirmation';
-import { ErrorReportsService } from 'src/app/services/error-reports.service';
+import { FeedbackService } from 'src/app/services/feedback';
 import { Observable, Subscription } from 'rxjs';
 
 /**
@@ -46,7 +46,7 @@ export class TestingComponent implements OnInit, OnDestroy, CanComponentDeactiva
   private _subscription: Subscription = new Subscription();
 
   constructor(
-    private errorReportsService: ErrorReportsService,
+    private feedbackService: FeedbackService,
     private quizController: QuizControllerService,
     private route: ActivatedRoute,
     private confirmation: ConfirmationService,
@@ -145,7 +145,7 @@ export class TestingComponent implements OnInit, OnDestroy, CanComponentDeactiva
   protected _sendFeedback(): void {
     if (this._feedbackText) {
       this._subscription.add(
-        this.errorReportsService.create({
+        this.feedbackService.create({
           text: this._feedbackText,
           questionId: this.currentQuestion.id
         }).subscribe(() => {

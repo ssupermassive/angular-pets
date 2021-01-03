@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { ICategory, ICategoryQueryFilter } from 'src/app/models/categories';
 import { LocalStorageService } from 'src/app/core';
@@ -11,7 +11,7 @@ const CATEGORIES = [
     name: 'JavaScript',
     description: '',
     publish: true,
-    itemType: false,
+    itemType: true,
     parent: null,
     service: true,
   }
@@ -23,13 +23,9 @@ const CATEGORIES = [
  */
 
 @Injectable()
-export class CategoriesService implements OnInit {
+export class CategoriesService {
 
-  constructor(private localStorage: LocalStorageService) { }
-
-  private data: ICategory[] = CATEGORIES;
-
-  ngOnInit() {
+  constructor(private localStorage: LocalStorageService) {
     const storageData = this.localStorage.getItem(LOCAL_STORAGE_TOKEN);
 
     if (storageData) {
@@ -39,6 +35,8 @@ export class CategoriesService implements OnInit {
 
     this.data = CATEGORIES;
   }
+
+  private data: ICategory[] = CATEGORIES;
 
   /**
    * Чтения категории по её идентификатору

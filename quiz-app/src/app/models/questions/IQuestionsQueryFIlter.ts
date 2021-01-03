@@ -7,6 +7,7 @@ export interface IQuestionsQueryFilter {
      * Категория
      */
     category?: number;
+
     /**
      * Признак опубликованности
      */

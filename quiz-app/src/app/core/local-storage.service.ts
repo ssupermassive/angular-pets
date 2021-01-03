@@ -9,7 +9,9 @@ export class LocalStorageService {
   constructor() { }
 
   setItem(key: string, value: any) {
-    window.localStorage.setItem(key, value);
+
+    const valueAsStr = typeof value === 'string' ? value : JSON.stringify(value);
+    window?.localStorage.setItem(key, valueAsStr);
   }
 
   getItem(key: string): any {

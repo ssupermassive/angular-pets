@@ -20,11 +20,9 @@ import { TreeModule } from 'src/app/components/tree';
 import { PageModule } from 'src/app/components/page';
 import { ScrollContainerModule } from 'src/app/components/scroll-container';
 import { CategoriesComponent } from './tabs/categories/categories.component';
-import { ErrorReportsComponent } from './tabs/error-reports/error-reports.component';
+import { FeedbackComponent } from './tabs/feedback/feedback.component';
 import { MatTabsModule } from '@angular/material/tabs';
-import { ErrorReportsResolver } from 'src/app/services/resolvers/error-reports.resolver';
-import { ErrorReportsService } from 'src/app/services/error-reports.service';
-import { AuthGuard } from 'src/app/core/auth/auth-guard';
+import { FeedbackResolver, FeedbackService } from 'src/app/services/feedback';
 import { AdminService } from './services/admin.service';
 import { AdminResolver } from './services/admin.resolver';
 import { CategoryModule } from 'src/app/category';
@@ -35,13 +33,11 @@ const routes = [
   {
     path: '',
     component: AdminComponent,
-    canActivate: [AuthGuard],
     children: [
       {
         path: '',
         redirectTo: '/admin/categories',
         pathMatch: 'full',
-        canActivate: [AuthGuard]
       },
       {
         path: 'categories',
@@ -53,16 +49,14 @@ const routes = [
           categoriesFilter: {
             enableServiceCategory: true
           }
-        },
-        canActivate: [AuthGuard]
+        }
       },
       {
         path: 'feedback',
-        component: ErrorReportsComponent,
+        component: FeedbackComponent,
         resolve: {
-          feedback: ErrorReportsResolver
-        },
-        canActivate: [AuthGuard]
+          feedback: FeedbackResolver
+        }
       }
     ]
   }
@@ -79,13 +73,12 @@ const routes = [
     CategoriesListComponent,
     QuestionsListComponent,
     CategoriesComponent,
-    ErrorReportsComponent
+    FeedbackComponent
   ],
   providers: [
     CategoriesResolver,
-    ErrorReportsResolver,
-    ErrorReportsService,
-    AuthGuard,
+    FeedbackResolver,
+    FeedbackService,
     CategoriesService,
     QuestionsService,
     AdminService,

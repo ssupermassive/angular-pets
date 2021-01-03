@@ -64,21 +64,6 @@ export class QuestionDialogComponent implements OnInit, OnDestroy {
   question: Question;
 
   /**
-   * Можно ли добавить изображение
-   */
-  canEditImage: boolean;
-
-  /**
-   * Папка для изображений
-   */
-  imageFolder: string = 'questions';
-
-  /**
-   * Ключ прикрепленного изображения
-   */
-  imageKey: number;
-
-  /**
    * Текст кнопки завершения редактирования
    */
   submitButtonCaption: string = 'Добавить';
@@ -155,15 +140,13 @@ export class QuestionDialogComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.question = this.data.question;
-    this.canEditImage = this.data.canEditImage;
     this.dialogTitle = this.question && this.question.id ? 'Редактировать вопрос' : 'Добавить вопрос';
 
     this.feedback = this.data.feedback;
     if (this.question && this.question.id) {
       this.submitButtonCaption = 'Сохранить';
-      this.codeAreaExpand = !!(this.question.code || this.question.imageKey);
+      this.codeAreaExpand = !!this.question.code;
       this.explanationAreaExpand = !!this.question.explanation;
-      this.imageKey = this.question.imageKey;
     }
 
     this._createForm({
@@ -301,24 +284,6 @@ export class QuestionDialogComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Обработчик изменения изображения
-   * @param key;
-   */
-  protected _imageChangedHandler(key: number): void {
-    if (this.question && this.question.id && !key) {
-      this._subscription.add(
-        this.questionService.resetImage(this.question.id).subscribe()
-      )
-    }
-
-    this.imageKey = key;
-    this.changeDetector.markForCheck();
-  }
-
-  /** МЕТОДЫ, ПЕРЕКОЧЕВАВШИЕ ИЗ КОМПОНЕНТА ФОРМЫ */
-
-
-  /**
    * Обработчик клика на кнопку завершения редактирования
    * @param form
    */
@@ -344,7 +309,6 @@ export class QuestionDialogComponent implements OnInit, OnDestroy {
       const question = {
         id,
         publish: !!(this.question && this.question.publish),
-        imageKey: this.imageKey,
         text,
         options,
         code,
@@ -464,17 +428,6 @@ export class QuestionDialogComponent implements OnInit, OnDestroy {
    */
   _addOption(): void {
     this._options.push(this._createOptions());
-  }
-
-  /**
-   * Обработчик выбора изображения
-   */
-  fileChoosedHandler(data: { file: File }): void {
-    this._subscription.add(
-      this.fileService.upload(data.file, this.imageFolder).subscribe((key: number) => {
-        this._imageChangedHandler(key);
-      })
-    );
   }
 
   toggleCodePreview(): void {

@@ -161,7 +161,7 @@ export class QuestionsListComponent implements OnInit, OnChanges, OnDestroy {
    */
   _itemClick(item: Question): void {
     this._subscription.add(
-      this.questionDialog.open({ key: item.id, canEditImage: true }).subscribe((result: IQuestionEditResult) => {
+      this.questionDialog.open({ key: item.id}).subscribe((result: IQuestionEditResult) => {
         this.reload();
       })
     );
@@ -177,7 +177,6 @@ export class QuestionsListComponent implements OnInit, OnChanges, OnDestroy {
     this._subscription.add(
       this.questionDialog.open({
         question,
-        canEditImage: true,
         selectedCategory
       }).subscribe(() => {
         this.reload();
@@ -199,7 +198,7 @@ export class QuestionsListComponent implements OnInit, OnChanges, OnDestroy {
    */
   reload(filter?: IQuestionsQueryFilter): void {
     this._subscription.add(
-      this.questionsService.getAdminList(filter || this.filter).subscribe((result: Question[]) => {
+      this.questionsService.getList(filter || this.filter).subscribe((result: Question[]) => {
         this._dataSource = result;
         this.changeDetector.markForCheck();
       })
@@ -232,21 +231,6 @@ export class QuestionsListComponent implements OnInit, OnChanges, OnDestroy {
 
     this._subscription.add(
       this.questionsService.changePublishMass(keys, publish).subscribe(
-        () => {
-          this.reload();
-        })
-    );
-  }
-
-  /**
-   * Массовое изменение категорий
-   * @param category;
-   */
-  changeCategory(category: number): void {
-    const keys = (this._selectedItems.map((item: Question) => item.id));
-
-    this._subscription.add(
-      this.questionsService.changeCategoryMass(keys, category).subscribe(
         () => {
           this.reload();
         })

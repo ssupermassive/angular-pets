@@ -262,7 +262,6 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
     );
   }
 
-
   reload(): void {
     this._subscription.add(
       this.categoriesService.getAdminList().subscribe((result) => {
