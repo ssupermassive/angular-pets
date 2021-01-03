@@ -1,0 +1,8 @@
+<div class="ft-FilterLine__main ft-flexbox ft-align-items-center ft-justify-content-end">
+  <mat-select class="ft-FilterLine__publishFilter" [panelClass]="'ft-FilterLine__publishFilterPanel'"
+    [value]="_publishFilter" (selectionChange)="_onPublishFilterChangedHandler($event)">
+    <mat-option [value]="0">Все</mat-option>
+    <mat-option [value]="1">Опубликованные</mat-option>
+    <mat-option [value]="2">Неопубликованные</mat-option>
+  </mat-select>
+</div>

@@ -1,0 +1,15 @@
+.ft-Timer {
+    text-align: center;
+    
+    &__many {
+        color: green;
+    }
+
+    &__normal {
+        color: orange;
+    }
+
+    &__low {
+        color: red;
+    }
+}

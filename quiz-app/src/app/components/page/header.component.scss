@@ -1,0 +1,30 @@
+
+
+.ft-PageHeader {
+    width           : 100%;
+    height          : 50px;
+    background-color: white;
+
+    &__title {
+        font-size  : 30px;
+        font-weight: bold;
+        margin-left: 24px;
+
+        &:hover {
+            cursor     : pointer;
+            text-shadow: 3px -2px 5px white;
+        }
+    }
+
+    &__menu {
+        &-button {
+            height      : 38px;
+            margin-right: 12px;
+        }
+
+        &-userButton {
+            cursor: pointer;
+            margin-right: 12px;
+        }
+    }
+}

@@ -1,0 +1,7 @@
+<ng-template #rowTemplate let-item="item">
+  <div class="ft-text-ellipsis">{{ item.name }}</div>
+</ng-template>
+
+<ft-selector-dialog dialogTitle="Выберите категорию" [dialogRef]="dialogRef">
+  <ft-category-list selectorList [dataSource]="data.dataSource" [rowTemplate]="rowTemplate" (itemClick)="selectCompleteHandler($event)"></ft-category-list>
+</ft-selector-dialog>

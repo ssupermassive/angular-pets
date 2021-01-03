@@ -1,0 +1,25 @@
+<ng-template #treeItemTemplate let-itemData="itemData">
+  <ft-tree-row 
+    (rowClick)="rowClickHandler($event)"
+    [data]="itemData" 
+    [marked]="markedKey === itemData.item[keyProperty]"
+    [border]="true"
+    [treeControl]="_treeControl"
+    [rowContent]="rowTemplate" 
+    [rowActions]="rowActions">
+  </ft-tree-row>
+</ng-template>
+
+<ng-container *ngIf="_dataSource && _dataSource.data.length">
+<mat-tree #tree [dataSource]="_dataSource" [treeControl]="_treeControl" class="ft-Tree">
+  <mat-tree-node *matTreeNodeDef="let itemData">
+    <ng-container *ngTemplateOutlet="treeItemTemplate; context: {itemData: itemData}"></ng-container>
+  </mat-tree-node>
+  <mat-tree-node *matTreeNodeDef="let itemData; when: hasChild">
+    <ng-container *ngTemplateOutlet="treeItemTemplate; context: {itemData: itemData}"></ng-container>
+  </mat-tree-node>
+</mat-tree>
+</ng-container>
+<ng-container *ngIf="!_dataSource || !_dataSource.data.length">
+  <div class="ft-Tree__empty">Нет данных</div>
+</ng-container>

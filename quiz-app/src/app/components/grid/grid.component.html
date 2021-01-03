@@ -1,0 +1,72 @@
+<ng-template #columnTemplate let-colTemplate="colTemplate" let-item="item" let-isLast="isLast"
+    let-itemActions="itemActions">
+    <div class="ft-Grid__columnTemplate ft-text-ellipsis ft-flexbox ft-flex-shrink-1 ft-flex-grow-1">
+        <ng-container *ngTemplateOutlet="colTemplate; context: {item: item}"></ng-container>
+        <div *ngIf="isLast && itemActions && itemActions.length" class="ft-Grid__itemActions">
+            <mat-icon *ngFor="let action of itemActions" [ngClass]="_getActionClasses(action, item)"
+                [title]="action.title" (click)="_rowActionHandler($event, action, item)">
+                {{ action.icon }}
+            </mat-icon>
+        </div>
+    </div>
+</ng-template>
+
+<mat-table *ngIf="_hasDataSource()" [dataSource]="_dataSource" class="ft-Grid ft-Grid__cellVAlign-{{ columnVAlign }} {{paging ? 'ft-Grid__paginatorOffset' : ''}}">
+        <ng-container matColumnDef="select">
+            <mat-header-cell *matHeaderCellDef [ngStyle]="_selectColumnStyles">
+                    <mat-checkbox 
+                      title="{{ _isAllSelected() ? 'Снять выделение' : 'Выделить всё' }}"
+                      class="ft-Grid__columnTemplate"
+                      (change)="$event ? _masterToggleHandlers() : null"
+                      [checked]="_selectionModel.hasValue() && _isAllSelected()"
+                      [disableRipple]="true"
+                      [indeterminate]="_selectionModel.hasValue() && !_isAllSelected()">
+                    </mat-checkbox>
+                </mat-header-cell>
+                <mat-cell mat-cell *matCellDef="let element" [ngStyle]="_selectColumnStyles">
+                    <mat-checkbox 
+                      [disableRipple]="true"
+                      (click)="$event.stopPropagation()"
+                      (change)="$event ? _toggleCheckbox(element) : null"
+                      [checked]="_selectionModel.isSelected(element)">
+                </mat-checkbox>
+            </mat-cell>
+        </ng-container>
+    <ng-container *ngFor="let column of _columns, let last = last" matColumnDef="{{ column.name }}">
+            <mat-header-cell *matHeaderCellDef [ngStyle]="{ width: column.width, maxWidth: column.width }">
+                <ng-container *ngIf="column.headerTemplate">
+                    <ng-container *ngTemplateOutlet="column.headerTemplate; context: {
+                        selection: _selectionModel,
+                        isAllSelected: _isAllSelected,
+                        masterToggle: _masterToggleHandlers
+                    }">
+                    </ng-container>
+                </ng-container>
+                <ng-container *ngIf="!column.headerTemplate && column.headerCaption">
+                    {{ column.headerCaption }}
+                </ng-container>
+            </mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element" [ngStyle]="{ width: column.width, maxWidth: column.width }">
+                <ng-container *ngTemplateOutlet="columnTemplate; context: {
+                    item: element, 
+                    colTemplate: column.template,
+                    isLast: last,
+                    itemActions: itemActions
+                }">
+                </ng-container>
+            </mat-cell>
+    </ng-container>
+    <ng-container *ngIf="showHeader">
+        <mat-header-row class="ft-Grid__headerRow" *matHeaderRowDef="_columnsNames"></mat-header-row>
+    </ng-container>
+    <mat-row *matRowDef="let row; columns: _columnsNames;" class="ft-Grid__row"
+        [ngClass]="getRowClasses && getRowClasses(row)" [class.ft-Grid__row-selected]="row[keyProperty] === _selectedKey"
+        (click)="_rowClick(row)"></mat-row>
+</mat-table>
+<div *ngIf="!_hasDataSource()" class="ft-Grid__empty">Нет данных</div>
+<mat-paginator 
+    *ngIf="!!paging"
+    class="ft-Grid__paginator"
+    [hidePageSize]="true"
+    [pageSize]="paging && paging.pageSize"></mat-paginator>
+

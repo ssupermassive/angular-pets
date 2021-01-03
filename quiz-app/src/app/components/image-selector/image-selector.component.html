@@ -1,0 +1,20 @@
+<ng-template #imageTemplate let-src="src" let-width="width" let-height="height">
+  <img *ngIf="!!src" class="ft-Image__image" alt="img" [src]="domSanitizer.bypassSecurityTrustUrl(src)"
+    [width]="width" [height]="height" />
+    <div *ngIf="!src" 
+         [style.width]="width + 'px'" 
+         [style.height]="height + 'px'"
+         class="ft-flexbox ft-justify-content-center ft-align-items-center">
+         Выберите изображение
+        </div>
+</ng-template>
+
+<div class="ft-Image__main ft-flexbox ft-flex-column ">
+  <ng-container *ngTemplateOutlet="emptyTemplate && !_imageData.src ? emptyTemplate : imageTemplate; context: _imageData">
+  </ng-container>
+  <div class="ft-Image__panel ft-flexbox ft-justify-content-end">
+    <mat-icon *ngIf="_showDeleteButton" title="Удалить" (click)="_deleteHandler()" class="ft-warning"> delete
+    </mat-icon>
+    <ft-file-selection-button (fileChoosed)="_fileChoosedHandler($event)"></ft-file-selection-button>
+  </div>
+</div>

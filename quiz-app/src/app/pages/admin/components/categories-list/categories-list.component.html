@@ -1,0 +1,12 @@
+<ft-category-list 
+  (itemClick)="_itemClickHandler($event)"
+  [dataSource]="_dataSource" 
+  [rowTemplate]="rowTemplate"
+  [rowActions]="_itemActions"
+  [markedKey]="markedKey">
+  <ng-template #rowTemplate let-item="item">
+    <div [class.ft-CategoriesList__item-unpublish]="!item.publish && !item.service" class="ft-text-ellipsis">
+      {{ item.name }}
+    </div>
+  </ng-template>
+</ft-category-list>

@@ -1,0 +1,43 @@
+.ft-CategoryDialog {
+    &__header {
+
+        &-title {
+            font-size: 20px;
+        }
+
+        &-submit {
+            margin-right: 12px;
+        }
+
+        &-close {
+            cursor: pointer;
+        }
+    }
+
+    &__content {
+        margin: 12px;
+    }
+
+    &__main,
+    &__form {
+        width: 100%;
+    }
+
+    &__name,
+    &__description {
+        margin-top: 12px;
+        width: 100%;
+    }
+
+    &__fields {
+        margin-right: 12px;
+    }
+
+    &__image {
+        &-emptyText {
+            text-align: center;
+            font-size: 12px;
+            color: #AAA;
+        }
+    }
+}

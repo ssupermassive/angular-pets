@@ -1,0 +1,22 @@
+<ng-template #expanderTemplate let-data="data" let-treeControl="treeControl">
+  <mat-icon *ngIf="_data.expandable" 
+  [style.marginLeft]="(_data.level * 12) +'px'"
+  class="ft-TreeRow__nodeExpander ft-flex-shrink-0 ft-flex-grow-0" 
+  (click)="toggleNode($event, _data)">
+    {{treeControl.isExpanded(_data)? 'expand_more': 'chevron_right'}}
+  </mat-icon>
+  <div *ngIf="!_data.expandable" [style.marginLeft]="(_data.level * 12) +'px'" class="ft-TreeRow__withoutExpanderPadding"></div>
+</ng-template>
+
+<ft-row
+    (rowClick)="rowClickHandler()"
+    [data]="_data.item"
+    [expanderData]="_data"
+    [treeControl]="treeControl"
+    [rowContent]="rowContent" 
+    [marked]="marked"
+    [border]="border"
+    [expanderTemplate]="expanderTemplate"
+    [rowActions]="rowActions">
+</ft-row>
+

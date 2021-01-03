@@ -1,0 +1,43 @@
+$hover_bg_color: #f0f2f5;
+
+:host {
+    width: 100%;
+}
+
+.ft-listRow {
+    width: 100%;
+    min-height: 30px;
+    position: relative;
+
+    &:hover {
+        cursor          : pointer;
+        background-color: $hover_bg_color;
+
+    }
+    &__rowActions {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        max-height: 24px;
+        background-color: $hover_bg_color;
+
+        &Button {
+            cursor: pointer;
+        }
+    }
+
+    &__marked {
+        &:before {
+            content         : ' ';
+            background-color: #5181b8;
+            width           : 4px;
+            position        : absolute;
+            top             : 0;
+            bottom          : 0;
+        }
+    }
+    
+    &__border {
+        border-bottom: 1px solid #CCC;
+    }
+}

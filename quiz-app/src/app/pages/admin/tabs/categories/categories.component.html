@@ -1,0 +1,35 @@
+<div class="ft-CategoriesTab__main ft-flexbox ft-flex-column ft-flex-grow-1 ft-flex-shrink-1">
+  <div class="ft-CategoriesTab__header ft-flexbox ft-flex-shrink-0">
+    <button class="ft-CategoriesTab__header-button" mat-stroked-button color="primary" (click)="_createQuestion()">+
+      Вопрос</button>
+    <button class="ft-CategoriesTab__header-button" mat-stroked-button color="primary" (click)="_createCategory()">+
+      Группа категорий</button>
+    <button *ngIf="_hasSelection" class="ft-CategoriesTab__header-button" mat-stroked-button color="primary"
+      (click)="_publishToggle(true)">Опубликовать</button>
+    <button *ngIf="_hasSelection" class="ft-CategoriesTab__header-button" mat-stroked-button color="primary"
+      (click)="_publishToggle(false)">Снять с публикации</button>
+    <!--     <button *ngIf="_hasSelection" class="ft-CategoriesTab__header-button" mat-stroked-button color="primary"
+      (click)="_changeCategory()">Сменить категорию</button> -->
+  </div>
+  <mat-sidenav-container
+    class="ft-CategoriesTab__masterDetail ft-flexbox ft-flex-column ft-flex-grow-1 ft-flex-shrink-1">
+    <mat-sidenav class="ft-CategoriesTab__master ft-flexbox ft-flex-column ft-flex-grow-1 ft-flex-shrink-1" mode="side"
+      opened>
+      <div class="ft-CategoriesTab__master-container ft-flexbox ft-flex-column">
+        <div class="ft-CategoriesTab__categoryView">
+          <ft-categories-list (itemClick)="_onCategoryClick($event)" (categoryChanged)="_categoryChangedHandler()" [dataSource]="_categories">
+          </ft-categories-list>
+        </div>
+      </div>
+    </mat-sidenav>
+    <mat-sidenav-content class="ft-CategoriesTab__detail ft-flexbox ft-flex-column ft-flex-grow-1 ft-flex-shrink-1">
+      <ft-filter-line class="ft-CategoriesTab__filterLine ft-flex-shrink-0" (filterChanged)="_filterChanged($event)">
+      </ft-filter-line>
+      <ft-scroll-container>
+        <ft-questions-list (selectionChanged)="_questionSelectionChanged($event)" [dataSource]="_questions"
+          [filter]="_filter" [currentCategory]="selectedCategory">
+        </ft-questions-list>
+      </ft-scroll-container>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

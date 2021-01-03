@@ -1,0 +1,234 @@
+:host {
+  height: 100%;
+  display: flex;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-direction: column;
+  min-height: 1px;
+  max-width: 700px;
+  min-width: 700px;
+}
+
+.ft-QuestionDialog {
+  &__addComplete {
+    height: 100%;
+
+    &-firstText {
+      padding-bottom: 20px;
+      text-align: center;
+    }
+
+    &-secondText {
+      text-align: center;
+    }
+
+    &-buttons {
+      padding-top: 50px;
+
+      &-button {
+        margin-top: 8px;
+        min-width: 50%;
+        max-width: 50%;
+      }
+    }
+
+    &-defaultAddCompleteTemplate {
+      font-size: 32px;
+      font-weight: bold;
+    }
+  }
+
+  &__textareaContainer {
+    max-width: 665px;
+  }
+
+  &__form {
+    &-textField-autoresize {
+      // FixMe исправление баги со скролом для полей с авторесайзом
+      // https://github.com/angular/components/issues/12902
+      box-sizing: content-box;
+      max-width: 665px;
+    }
+  }
+
+  /** Классы формы */
+
+  &__textarea {
+    resize: none;
+    font-size: 1rem;
+  }
+
+  &__label {
+    width: 100%;
+    margin-bottom: 0;
+  }
+
+  &__caption {
+    font-weight: normal;
+    font-size: 1.2rem;
+    margin-bottom: 0;
+    line-height: normal;
+  }
+
+  &__form {
+    min-width: 700px;
+    width: 100%;
+    height: 100%;
+    min-height: 1px;
+  }
+
+  &__categories {
+    margin-bottom: 8px;
+  }
+
+  &__subcategory {
+    margin-left: 12px;
+  }
+
+  &__header {
+    margin-bottom: 8px;
+
+    &-content {
+      width: 100%;
+    }
+
+    &-title {
+      font-weight: 700;
+      font-size: 20px;
+    }
+
+    &-button {
+      cursor: pointer;
+    }
+
+    &-submit {
+      margin-right: 12px;
+    }
+  }
+
+  &__content {
+    height: 100%;
+    min-height: 1px;
+    overflow-y: scroll;
+  }
+
+  &__feedback {
+    margin: 4px;
+    padding: 4px;
+    border: 1px solid red;
+    border-radius: 8px;
+  }
+
+  &__attachButton {
+    margin-top: 4px;
+  }
+
+  &__code,
+  &__image {
+    width: 50%;
+  }
+
+  &__image {
+    margin-left: 8px;
+
+    &-emptyText {
+      color: #AAA;
+      text-align: center;
+    }
+  }
+
+  &__spoiler {
+    min-height: 36px;
+  }
+
+  &__codeWithoutImage &__code {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  &__fieldTitleContainer {
+    padding-bottom: 4px;
+    min-height: 36px;
+  }
+
+  &__fieldTitle {
+    cursor: pointer;
+  }
+
+  &__toggleArea {
+    cursor: pointer;
+    margin-left: 4px;
+    margin-top: 2px;
+  }
+
+  &__validationError,
+  &__optionsValidationError {
+    margin-right: 12px;
+  }
+
+  &__optionsValidationError {
+    margin-top: 4px;
+  }
+
+  &__scroll {
+    height: 100%;
+    padding-right: 12px;
+    position: relative;
+  }
+
+  &__field {
+    width: 100%;
+  }
+
+  &__option {
+    padding-top: 8px;
+
+    &-main {
+      margin-bottom: 8px;
+    }
+
+    &:hover .EditingForm__delete {
+      display: block;
+    }
+  }
+
+  &__actions {
+    max-width: 36px;
+    min-width: 36px;
+  }
+
+  &__action {
+    margin-top: 4px;
+    cursor: pointer;
+
+    &Move {
+      margin-top: 4px;
+      cursor: move;
+    }
+  }
+
+  &__delete {
+    display: none;
+    color: #CCC;
+    cursor: pointer;
+  }
+
+  &__addAnswer {
+    margin-left: -12px;
+  }
+
+  &__categorySelector {
+    margin-left: 24px;
+    height: 30px;
+  }
+
+  &__сodePreview {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    width: 100%;
+
+    &-toggle {
+      cursor: pointer;
+    }
+  }
+}

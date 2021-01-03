@@ -1,0 +1,26 @@
+<div class="ft-CategoryDialog__main">
+    <form class="ft-CategoryDialog__form ft-flexbox ft-flex-column" [formGroup]="_form" (submit)="_submitHandler()">
+        <div class="ft-CategoryDialog__header ft-flexbox ft-justify-content-between">
+            <div class="ft-CategoryDialog__header-title">
+                {{ dialogTitle }}
+            </div>
+            <div class="ft-CategoryDialog__header-buttons ft-flexbox ft-align-items-center">
+                <button class="ft-CategoryDialog__header-submit" tabindex="-1" mat-raised-button color="primary"
+                    type="submit" [disabled]="!_form.valid">Сохранить</button>
+                <mat-icon (click)="_close()" class="ft-CategoryDialog__header-close" title="Закрыть">close</mat-icon>
+            </div>
+        </div>
+        <div class="ft-CategoryDialog__content ft-flexbox">
+            <div class="ft-CategoryDialog__fields ft-flex-grow-1 ft-flex-shrink-1">
+                <mat-form-field class="ft-CategoryDialog__name">
+                    <input formControlName="name" matInput placeholder="Название">
+                </mat-form-field>
+                <mat-form-field class="ft-CategoryDialog__description">
+                    <textarea formControlName="description" matInput [mat-autosize] [matAutosizeMaxRows]="10"
+                        [matAutosizeMinRows]="4" placeholder="Описание">
+                    </textarea>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</div>

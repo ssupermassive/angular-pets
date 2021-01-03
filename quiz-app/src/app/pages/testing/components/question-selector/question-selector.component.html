@@ -1,0 +1,9 @@
+<div (click)="_changeSelectedQuestion(question)" class="ft-QuestionSelector__number"
+    [class.ft-QuestionSelector__selected]="_selected === question.id"
+    [class.ft-QuestionSelector__answered]="question.answered" *ngFor="let question of questions; let i = index">
+    {{ i + 1 }}
+    <svg class="ft-QuestionSelector__marked" *ngIf="question.marked"
+    viewBox="0 0 1 1" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="0,0 1,1 1,0" xmlns="http://www.w3.org/2000/svg"></polygon>
+    </svg>
+</div>

@@ -1,0 +1,37 @@
+<div class="ft-ResultList__main ft-flexbox ft-flex-column ft-flex-grow-1 ft-flex-shrink-1">
+  <mat-tab-group class="ft-ResultList__tabs ft-flex-shrink-0" (selectedTabChange)="_changeSelectedTadHandler($event)"
+    mat-align-tabs="center" animationDuration="0ms">
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <div class="ft-ResultList__tabs-label">Все</div>
+      </ng-template>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <div class="ft-flexbox ft-align-items-center">
+          <div class="ft-ResultList__tabs-label">Верные</div>
+          <mat-icon class="ft-ResultList__tabs-icon ft-success">check_circle</mat-icon>
+        </div>
+      </ng-template>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <div class="ft-flexbox ft-align-items-center">
+          <div class="ft-ResultList__tabs-label">Неверные</div>
+          <mat-icon class="ft-ResultList__tabs-icon ft-warning">unpublished</mat-icon>
+        </div>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+  <ft-scroll-container>
+    <div *ngIf="_questions.length" class="ft-ResultList__questions ft-flexbox ft-flex-column">
+      <div class="ft-ResultList__question" *ngFor="let question of _questions">
+        <ft-testing-form [question]="question" [showResult]="true">
+        </ft-testing-form>
+      </div>
+    </div>
+    <div *ngIf="!_questions.length" class="ft-ResultList__emptyView ft-flexbox ft-justify-content-center">
+      Нет данных
+    </div>
+  </ft-scroll-container>
+</div>

@@ -1,0 +1,107 @@
+$left_container_width: 338px;
+$left_container_margin: 12px;
+
+:host {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  user-select: none;
+  overflow: hidden;
+}
+
+.ft-TestingPage {
+  height: 100%;
+  width: 100%;
+  background-color: #f0f0f0;
+
+  &__leftContainer {
+    padding: 20px 12px;
+    margin-top: 8px;
+    max-width: $left_container_width;
+    min-width: $left_container_width;
+    height: 100%;
+    background: white;
+  }
+
+  &__info {
+    margin: 0 8px;
+
+    &-title {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    &-timer {
+      margin-left: 12px;
+    }
+  }
+
+  &__separator {
+    height: 1px;
+    background-color: #ccc;
+    margin: 12px 0;
+  }
+
+  &__question {
+    background-color: white;
+    padding: 20px 12px;
+
+    &Container {
+      margin: 8px 0 0 8px;
+    }
+  }
+
+  &__empty {
+    background: url(../../../images/common-bg.png);
+    width: 100%;
+    height: 100%;
+
+    &-text {
+      text-align: center;
+    }
+
+    &-back {
+      margin-top: 24px;
+    }
+  }
+
+  &__feedback {
+    &-show {
+      margin: 18px 6px 0 8px;
+    }
+
+    &-hide {
+      margin-right: 8px;
+    }
+
+    &-hide,
+    &-cancel {
+      width: 50%;
+    }
+
+    //Фикс глюка с появлением скрола в пустом поле
+    &-textarea {
+      box-sizing: content-box;
+
+      &Container {
+        margin-top: 4px;
+      }
+    }
+  }
+}
+
+@media(max-width: 756px) {
+  .ft-TestingPage {
+    flex-direction: column;
+
+    &__leftContainer {
+      max-width: 100%;
+      min-width: 0;
+      height: auto;
+    }
+
+    &__question {
+        margin-left: 0;
+    }
+  }
+}

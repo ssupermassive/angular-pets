@@ -1,0 +1,45 @@
+:host {
+    display       : flex;
+    flex-direction: column;
+    height        : 100%;
+    width         : 100%;
+    flex-grow     : 1;
+    flex-shrink   : 1;
+    min-height: 0;
+}
+
+.ft-ResultList {
+    &__main {
+        height        : 100%;
+        width         : 100%;
+        min-height: 0;
+    }
+
+    &__tabs {
+        background-color: white;
+        &-label {
+            color: black;
+            font-size: 18px;
+        }
+
+        &-icon {
+            margin-left: 12px;
+        }
+    }
+
+    &__questions {
+        height        : 100%;
+    }
+
+    &__question {
+        padding      : 20px;
+        margin       : 8px 12px 0 12px;
+        background-color: white;
+        border-radius: 12px;
+    }
+
+    &__emptyView {
+        color          : #999;
+        padding        : 12px;
+    }
+}

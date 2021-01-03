@@ -1,0 +1,180 @@
+<form *ngIf="!_additingComplete" class="ft-QuestionDialog__form ft-flexbox ft-flex-column ft-flex-shrink-1 ft-flex-grow-1" [formGroup]='_newQuestionForm'
+        (submit)="_submitHandler(_newQuestionForm)">
+        <div class="ft-QuestionDialog__header ft-flexbox ft-flex-shrink-0 ft-align-items-baseline ft-justify-content-between">
+                <div
+                        class="ft-QuestionDialog__header-content ft-flexbox ft-justify-content-between ft-align-items-baseline">
+                        
+                        <div class="ft-QuestionDialog__header-title">{{ dialogTitle }}</div>
+                        <div class="ft-flexbox ft-align-items-center">
+                                <button class="btn btn-primary ft-QuestionDialog__header-submit" type="submit"
+                                        [disabled]="!_newQuestionForm.valid">
+                                        {{ submitButtonCaption }}
+                                </button>
+                                <mat-icon *ngIf="question && question.id && !question.publish"
+                                        class="ft-QuestionDialog__header-button ft-secondary" title="Опубликовать"
+                                        (click)="publishChange(true)">
+                                        check_circle_outline
+                                </mat-icon>
+                                <mat-icon *ngIf="question && question.id && question.publish"
+                                        class="ft-QuestionDialog__header-button ft-success" title="Снять с публикации"
+                                        (click)="publishChange(false)">
+                                        check_circle
+                                </mat-icon>
+                                <mat-icon *ngIf="question && question.id" title="Удалить"
+                                        class="ft-QuestionDialog__header-button ft-warning" (click)="deleteQuestion()">
+                                        delete
+                                </mat-icon>
+                                <mat-icon class="ft-QuestionDialog__header-button" title="Закрыть"
+                                        (click)="_closeButtonClickHandler()">
+                                        close
+                                </mat-icon>
+                        </div>
+                </div>
+        </div>
+        <div class="ft-flexbox ft-QuestionDialog__categories">
+             <ft-selector-link 
+                displayProperty="name" 
+                emptyText="Выберите категорию" 
+                formControlName="category"
+                [selectorConfig]="getCategorySelectorConfig({flatList: true, itemType: true})">
+             </ft-selector-link>   
+             <ft-selector-link 
+                *ngIf="categoryControl.value"
+                class="ft-QuestionDialog__subcategory"
+                displayProperty="name" 
+                emptyText="Выберите подкатегорию" 
+                formControlName="subcategory"
+                [selectorConfig]="getCategorySelectorConfig({parent: categoryControl.value.id, flatList: true})">
+             </ft-selector-link>   
+        </div>
+        <div class="ft-QuestionDialog__content ft-flexbox ft-flex-column ft-flex-grow-1 ft-flex-shrink-1">
+                <div *ngIf="!!feedback" class="ft-QuestionDialog__feedback">
+                        {{feedback}}
+                </div>
+                <div class="ft-QuestionDialog__textareaContainer">
+                        <label class="ft-QuestionDialog__label">
+                                <div class="ft-QuestionDialog__fieldTitleContainer ft-flexbox ft-justify-content-between">
+                                        <div class="ft-QuestionDialog__fieldTitle ft-QuestionDialog__caption">Текст</div>
+                                        <div class="ft-QuestionDialog__validationError ft-validation-error"
+                                                *ngIf="_text.errors && _text.errors.required && _text.touched">
+                                                Поле обязательно для заполнения
+                                        </div>
+                                </div>
+                                <textarea [cdkTextareaAutosize] cdkAutosizeMinRows="2" cdkAutosizeMaxRows="5" 
+                                          class="ft-QuestionDialog__field ft-QuestionDialog__areatext ft-QuestionDialog__form-textField-autoresize" placeholder="Текст вопроса..."
+                                        formControlName="text"></textarea>
+                        </label>
+                </div>
+                <div class="ft-QuestionDialog__textareaContainer">
+                        <div class="ft-flexbox ft-justify-content-between ft-QuestionDialog__spoiler">
+                                <div class="ft-flexbox">
+                                        <div class="ft-QuestionDialog__caption">Пример кода</div>
+                                        <mat-icon class="ft-QuestionDialog__toggleArea"
+                                                title="{{ codeAreaExpand ? 'Свернуть блок с кодом' : 'Развернуть блок с кодом' }}"
+                                                (click)="_toggleArea('codeAreaExpand')">
+                                                {{ codeAreaExpand ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}
+                                        </mat-icon>
+                                </div>
+                                <div>
+                                        <mat-icon class="ft-QuestionDialog__сodePreview-toggle" (click)="toggleCodePreview()"
+                                                title="Предпросмотр кода" *ngIf="codeAreaExpand">tv</mat-icon>
+                                        <ft-file-selection-button class="ft-QuestionDialog__attachButton"
+                                                *ngIf="canEditImage && !imageKey && codeAreaExpand"
+                                                (fileChoosed)="fileChoosedHandler($event)">
+                                        </ft-file-selection-button>
+                                </div>
+                        </div>
+                        <!-- Код вопроса -->
+                        <div *ngIf="codeAreaExpand"
+                                class="ft-flexbox {{ canEditImage ? 'ft-QuestionDialog__codeWithImage' : 'ft-QuestionDialog__codeWithoutImage' }}">
+                                <code *ngIf="showCodePreview" class="ft-QuestionDialog__сodePreview"
+                                        [highlight]="_code.value"></code>
+                                <textarea *ngIf="!showCodePreview" placeholder="Код..." [cdkTextareaAutosize] cdkAutosizeMinRows="8" cdkAutosizeMaxRows="8"
+                                        class="ft-QuestionDialog__code ft-QuestionDialog__areatext ft-QuestionDialog__form-textField-autoresize ft-flex-shrink-1 ft-flex-grow-1"
+                                        formControlName="code"></textarea>
+                                <ft-image-selector *ngIf="canEditImage && !!imageKey" [width]="330" [height]="198"
+                                        (imageChanged)="_imageChangedHandler($event)" [key]="imageKey"
+                                        [folder]="imageFolder"
+                                        class="ft-QuestionDialog__image ft-flex-shrink-1 ft-flex-grow-1">
+                                </ft-image-selector>
+                        </div>
+                </div>
+                <!--Пояснение-->
+                <div class="ft-QuestionDialog__textareaContainer">
+                        <label class="ft-QuestionDialog__label">
+                                <div class="ft-flexbox ft-QuestionDialog__spoiler">
+                                        <div class="ft-QuestionDialog__caption">Пояснение</div>
+                                        <mat-icon class="ft-QuestionDialog__toggleArea"
+                                                title="{{ explanationAreaExpand ? 'Свернуть блок с пояснениями' : 'Развернуть блок с пояснениями' }}"
+                                                (click)="_toggleArea('explanationAreaExpand')">
+                                                {{ explanationAreaExpand ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}
+                                        </mat-icon>
+                                </div>
+                                <textarea *ngIf="explanationAreaExpand" placeholder="Пояснение..."
+                                        [cdkTextareaAutosize] cdkAutosizeMinRows="2" cdkAutosizeMaxRows="4"
+                                        class="ft-QuestionDialog__field ft-QuestionDialog__textarea ft-QuestionDialog__form-textField-autoresize"
+                                        formControlName="explanation"></textarea>
+                        </label>
+                </div>
+                <!--Варианты ответа-->
+                <div formArrayName="options">
+                        <div class="ft-QuestionDialog__fieldTitleContainer ft-flexbox ft-justify-content-between">
+                                <div class="ft-QuestionDialog__fieldTitle ft-QuestionDialog__caption">Варианты ответа</div>
+                                <div class="ft-QuestionDialog__validationError ft-validation-error"
+                                        *ngIf="(_options.errors && (_options.errors.notAllOptionsFilled || _options.errors.noOneRightAnswer)) && _options.touched">
+                                        {{ _options.errors.notAllOptionsFilled || _options.errors.noOneRightAnswer }}
+                                </div>
+                        </div>
+                        <div cdkDropList (cdkDropListDropped)="_optionsDropEndHandler($event)">
+                                <div cdkDrag [formGroupName]="i" class="ft-QuestionDialog__option ft-flexbox ft-flex-column"
+                                        *ngFor="let opt of _options.controls; let i = index">
+                                        <div class="ft-QuestionDialog__option-main ft-flexbox">
+                                                <textarea placeholder="Введите текст ответа"
+                                                [cdkTextareaAutosize] cdkAutosizeMinRows="3" cdkAutosizeMaxRows="4"
+                                                class="ft-QuestionDialog__field ft-QuestionDialog__areatext ft-QuestionDialog__form-textField-autoresize" formControlName="text"></textarea>
+                                                <div class="ft-QuestionDialog__actions ft-flexbox ft-flex-column ft-align-items-center">
+                                                        <input title="Правильный ответ"
+                                                                class="ft-QuestionDialog__isRightAnswer" type="checkbox"
+                                                                formControlName="isRight" />
+                                                        <mat-icon cdkDragHandle
+                                                                class="ft-QuestionDialog__actionMove ft-primary"
+                                                                title="Переместить">
+                                                                open_with
+                                                        </mat-icon>
+                                                        <mat-icon *ngIf="i > MIN_ANSWERS_COUNT - 1"
+                                                                class="ft-QuestionDialog__action ft-warning"
+                                                                title="Удалить вариант ответа"
+                                                                (click)="_deleteOption(i)">
+                                                                cancel
+                                                        </mat-icon>
+                                                </div>
+                                        </div>
+                                </div>
+                        </div>
+                        <button class="ft-QuestionDialog__addAnswer btn btn-link" type="button"
+                                [disabled]="_options.controls.length === MAX_ANSWERS_COUNT" (click)="_addOption()">
+                                + Еще
+                        </button>
+                </div>
+        </div>
+</form>
+
+<div *ngIf="_additingComplete" class="ft-QuestionDialog__addComplete ft-flexbox ft-flex-column ft-justify-content-center">
+        <div class="ft-QuestionDialog__addComplete-defaultAddCompleteTemplate ft-text-align-center">
+                Вопрос добавлен
+        </div>
+        <div class="ft-QuestionDialog__addComplete-buttons ft-flexbox ft-flex-column ft-align-items-center">
+                <button class="ft-QuestionDialog__addComplete-buttons-button" mat-raised-button color="primary"
+                        (click)="_addMoreHandler()">
+                        Добавить ещё
+                </button>
+                <button class="ft-QuestionDialog__addComplete-buttons-button" mat-raised-button color="primary"
+                        (click)="_addBasedLast()">
+                        Добавить ещё на основе предыдущего
+                </button>
+                <button class="ft-QuestionDialog__addComplete-buttons-button" mat-stroked-button color="basic"
+                        (click)="_close()">
+                        Закрыть
+                </button>
+        </div>
+</div>

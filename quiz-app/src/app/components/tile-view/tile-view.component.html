@@ -1,0 +1,10 @@
+<div *ngIf="items && items.length" class="ft-TileView__main ft-flexbox ft-flex-wrap ft-justify-content-evently">
+  <div *ngFor="let item of items" [style.minWidth]="tileWidth" class="ft-TileView__tileContainer ft-flexbox ft-justify-content-center ft-flex-grow-1">
+    <div class="ft-TileView__tile ft-overflow-hidden" [class.ft-TileView__tile-hovered]="tileHovered" [style.maxWidth]="tileWidth" (click)="_tileClick(item)">
+      <ng-container *ngTemplateOutlet="tileTemplate; context: {item: item}"></ng-container>
+    </div>
+  </div>
+</div>
+<div *ngIf="!(items && items.length)">
+  {{ emptyText }}
+</div>

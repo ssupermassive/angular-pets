@@ -1,0 +1,58 @@
+<div *ngIf="_form" class="ft-TestingForm">
+  <form [formGroup]='_form' (submit)="_onSubmit()">
+    <div class="ft-TestingForm__infoContainer">
+      <div *ngIf="!!question.subcategoryName || showResult" 
+            class="ft-flexbox ft-align-items-center ft-TestingForm__info-catagory"
+            [class.ft-justify-content-between]="!!question.subcategoryName"
+            [class.ft-justify-content-end]="!question.subcategoryName">
+        <div *ngIf="!!question.subcategoryName" class="ft-TestingForm__info-catagory-text ft-text-ellipsis">{{ question.subcategoryName }}</div>
+        <mat-icon
+          *ngIf="showResult"
+          class="ft-TestingForm__info-answerIcon ft-flex-grow-0 ft-flex-shrink-0"
+          [class.ft-success]="question.isCorrectly"
+          [class.ft-warning]="!question.isCorrectly">
+          {{ question.isCorrectly ? 'check_circle' : 'unpublished' }}
+        </mat-icon>
+      </div>
+      <div class="ft-TestingForm__text">{{ question.text.trim() }}</div>
+      <div class="ft-TestingForm__imgContainer ft-flexbox ft-justify-content-center">
+        <img class="ft-TestingForm__img" *ngIf="question.imageKey" [src]="domSanitizer.bypassSecurityTrustUrl(_src)" />
+      </div>
+      <code *ngIf="question.code" class="ft-TestingForm__code" [highlight]="question.code"></code>
+      <div class="ft-TestingForm__infoContainer-overlay"></div>
+    </div>
+    <!--Для radioButton нужно привязать все кнопки к одному значению-->
+    <fieldset *ngIf="question.hasOneRightAnswer">
+      <div class="ft-TestingForm__options ft-flexbox" *ngFor="let opt of question.opts; let i = index"
+        (click)="_setSelected(_radio, i)"
+        [class.ft-TestingForm__optionsRight]="showResult && question.answered && question.opts[i].isRight && question.opts[i].selected"
+        [class.ft-TestingForm__optionsAnswerWrong]="showResult && question.answered && !question.opts[i].isRight && question.opts[i].selected"
+        [class.ft-TestingForm__options-hovered]="!showResult">
+        <input [attr.disabled]="question.answered ? '' : null" class="ft-TestingForm__optionRadio" [formControl]="_radio"
+          type="radio" name="opt" [value]="i" />
+        <div class="ft-TestingForm__optionText">{{ question.opts[i].text.trim() }}</div>
+      </div>
+    </fieldset>
+    <fieldset *ngIf="!question.hasOneRightAnswer">
+      <div class="ft-TestingForm__options ft-flexbox" *ngFor="let opt of question.opts; let i = index"
+        [class.ft-TestingForm__optionsRight]="showResult && question.answered && question.opts[i].isRight && question.opts[i].selected"
+        [class.ft-TestingForm__optionsAnswerWrong]="showResult && question.answered && !question.opts[i].isRight && question.opts[i].selected"
+        [class.ft-TestingForm__options-hovered]="!showResult" (click)="_setSelected(_checkboxes, i)">
+        <input [attr.disabled]="question.answered ? '' : null" class="ft-TestingForm__optionCheckbox"
+          [formControl]="_checkboxes.controls[i]" type="checkbox" />
+        <div class="ft-TestingForm__optionText">{{ opt.text.trim() }}</div>
+      </div>
+    </fieldset>
+    <div *ngIf="!showResult" class="ft-TestingForm__buttons">
+      <button *ngIf="!question.answered" class="ft-TestingForm__submit btn btn-success" type="submit"
+        [disabled]="!_form.valid">
+        Далее
+      </button>
+      <!--  <button *ngIf="!question.answered" class="ft-TestingForm__mark btn btn-warning" (click)="_setMarked()">
+        {{ question.marked ? 'Снять пометку' : 'Пометить вопрос' }}
+      </button> -->
+    </div>
+  </form>
+  <div *ngIf="showResult && question.answered && question.explanation" class="ft-TestingForm__explanation">
+    {{ question.explanation }}</div>
+</div>

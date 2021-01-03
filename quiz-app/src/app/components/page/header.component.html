@@ -1,0 +1,20 @@
+<div class="ft-PageHeader ft-flexbox ft-justify-content-between ft-align-items-center">
+  <div class="ft-PageHeader__title">
+    <span (click)="router.navigate(['home'])">QuizApp</span>
+  </div>
+  <div class="ft-PageHeader__menu ft-flexbox ft-align-items-center">
+    <div *ngIf="_headerButtonsConfig.userButton" 
+          class="ft-PageHeader__menu-userButton ft-flexbox ft-align-items-center ft-justify-content-center" 
+          mat-icon-button [matMenuTriggerFor]="userMenu">
+      <mat-icon class="">person</mat-icon>
+    </div>
+    <mat-menu #userMenu="matMenu">
+      <div mat-menu-item (click)="router.navigate(['admin'])">
+        Администрирование
+      </div>
+      <div mat-menu-item (click)="_logout()">
+        Выход
+      </div>
+    </mat-menu>
+  </div>
+</div>

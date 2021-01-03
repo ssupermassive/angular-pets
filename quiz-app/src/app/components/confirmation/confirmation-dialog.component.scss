@@ -1,0 +1,20 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shrink: 1;
+    height: 100%;
+}
+
+.ft-ConfirmationDialog {
+
+    &__message {
+        height: 100%;
+        text-align: center;
+    }
+
+    &__buttons {
+        min-height : 20px;
+        width: 100%;
+    }
+}

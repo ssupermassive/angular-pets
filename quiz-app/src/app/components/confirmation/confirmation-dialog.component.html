@@ -1,0 +1,16 @@
+<div class="ft-ConfirmationDialog ft-flex-container">
+  <div class="ft-ConfirmationDialog__message">
+    {{ data.message }}
+  </div>
+  <div [ngSwitch]="data.type" class="ft-ConfirmationDialog__buttons ft-flex-shrink-0">
+    <mat-dialog-actions *ngSwitchCase="'alert'"
+      class="ft-ConfirmationDialog__buttons-alert ft-flexbox ft-justify-content-center">
+      <button mat-button class="btn btn-light" [mat-dialog-close]>Ок</button>
+    </mat-dialog-actions>
+    <mat-dialog-actions *ngSwitchCase="'confirm'"
+      class="ft-ConfirmationDialog__buttons-confirm ft-flexbox ft-justify-content-around">
+      <button [mat-dialog-close]="true" class="btn btn-light">Да</button>
+      <button [mat-dialog-close]="false" class="btn btn-light">Нет</button>
+    </mat-dialog-actions>
+  </div>
+</div>

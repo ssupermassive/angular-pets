@@ -1,0 +1,22 @@
+<div class="ft-listRow ft-flexbox ft-align-items-center"
+    [class.ft-listRow__marked]="marked"
+    [class.ft-listRow__border]="border"
+    (click)="rowClickHandler()" 
+    (mouseover)="toggleRowActions(true)"
+    (mouseout)="mouseOutHandler($event)">
+  <ng-container *ngIf="selectorTemplate">
+    <ng-container *ngTemplateOutlet="selectorTemplate"></ng-container>
+  </ng-container>
+  <ng-container *ngIf="expanderTemplate">
+    <ng-container *ngTemplateOutlet="expanderTemplate; context: {_data: expanderData, treeControl: treeControl}"></ng-container>
+  </ng-container>
+  <ng-container *ngTemplateOutlet="rowContent; context: {item: _data}"></ng-container>
+  <div *ngIf="actionsShowed" class="ft-listRow__rowActions">
+    <ng-container *ngFor="let action of rowActions">
+      <mat-icon *ngIf="action.isVisible(_data)" class="ft-listRow__rowActionsButton" [ngClass]="getIconClass(action)"
+        [title]="action.title" (click)="rowActionClickHandler($event, action)">
+        {{ action.icon }}
+      </mat-icon>
+    </ng-container>
+  </div>
+</div>

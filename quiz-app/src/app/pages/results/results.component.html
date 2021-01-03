@@ -1,0 +1,23 @@
+<ft-page [scrolledContent]="false" [showFooter]="false" [headerButtonsConfig]="{userButton: false, addQuestion: false}">
+  <div class="ft-ResultsPage__info ft-flexbox ft-flex-column ft-flex-shrink-0">
+    <h2>{{ testName }}</h2>
+    <h3 *ngIf="_isCompleted">
+      Правильных ответов {{ count }} из {{ _questions.length }}
+    </h3>
+    <h3 *ngIf="_isCompleted">Ваш результат <span [style.color]="resultColor">{{ result }}%</span></h3>
+    <div *ngIf="!_isCompleted" class="ft-flexbox ft-flex-column ft-align-items-center">
+      <h1>К сожалению время тестирования</h1>
+      <h1>истекло :(</h1>
+    </div>
+    <div class="ft-ResultsPage__buttons ft-flexbox ft-justify-content-center">
+      <button *ngIf="canStartTest" class="ft-ResultsPage__repeat btn btn-primary" (click)="this.quizController.repeatLastTest()">
+        Пройти тест заново
+      </button>
+      <button class="ft-ResultsPage__back btn btn-secondary" [class.ft-ResultsPage__buttonOffset]="canStartTest" (click)="this.quizController.clear()">
+        Вернуться на главную
+      </button>
+    </div>
+  </div>
+  <ft-result-list class="ft-ResultsPage__questions" [questions]="_questions">
+  </ft-result-list>
+</ft-page>

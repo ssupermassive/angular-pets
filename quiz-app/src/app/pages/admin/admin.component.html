@@ -1,0 +1,10 @@
+<ft-page [showFooter]="false" [scrolledContent]="false" [headerButtonsConfig]="{userButton: false, addQuestion: false}">
+  <mat-tab-group class="ft-AdminPage__tabs" [selectedIndex]="selectedIndex" animationDuration="0ms" (selectedTabChange)="_changeSelectedTadHandler($event)">
+    <mat-tab *ngFor="let tab of tabs">
+      <ng-template mat-tab-label>
+        <div>{{tab.name}}</div>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+  <router-outlet></router-outlet>
+</ft-page>

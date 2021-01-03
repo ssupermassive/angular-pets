@@ -1,0 +1,10 @@
+<div class="ft-flexbox ft-flex-column ft-flex-shrink-1 ft-flex-grow-1 ft-height100percent">
+  <ft-page-header [buttonsConfig]="headerButtonsConfig" class="ft-flex-shrink-0"></ft-page-header>
+  <div class="ft-flexbox ft-flex-column ft-flex-shrink-1 ft-flex-grow-1 ft-height100percent" 
+       [class.Page__scrolledContent]="scrolledContent">
+    <div class="{{scrolledContent ? 'ft-flex-grow-1' : 'ft-flex-container'}}">
+      <ng-content></ng-content>
+    </div>
+    <ft-page-footer *ngIf="showFooter" class="ft-flex-shrink-0"></ft-page-footer>
+  </div>
+</div>

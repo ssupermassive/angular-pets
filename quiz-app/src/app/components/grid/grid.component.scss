@@ -1,0 +1,101 @@
+$hover_bg_color: #f0f2f5;
+$row_min_height: 30px;
+
+.ft-Grid {
+  &__headerRow {
+    min-height: $row_min_height;
+  }
+
+  &__row {
+    position: relative;
+    min-height: $row_min_height;
+
+    &:hover {
+      cursor: pointer;
+      background-color: $hover_bg_color;
+
+      .ft-Grid__itemActions {
+        display: flex;
+      }
+    }
+
+    &-selected {
+      &:before {
+        content: ' ';
+        background-color: #5181b8;
+        width: 4px;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+      }
+    }
+  }
+
+  &__itemActions {
+    background-color: $hover_bg_color;
+    display: none;
+    position: absolute;
+    right: 0;
+    bottom: 4px;
+
+    &-action {
+      &-hidden {
+        display: none;
+      }
+    }
+  }
+
+  &__empty {
+    color: #CCC;
+    text-align: center;
+    padding: 12px;
+  }
+
+  /**
+     *  Переопределение стилей mat-table
+     */
+  & .mat-cell,
+  & .mat-header-cell {
+    color: inherit;
+    padding: 0 6px;
+
+    &:first-of-type {
+      padding-left: 24px;
+    }
+  }
+
+  &__cellVAlign-center {
+
+    .mat-cell,
+    .mat-footer-cell,
+    .mat-header-cell {
+      align-items: center;
+    }
+  }
+
+  &__cellVAlign-top {
+
+    .mat-cell,
+    .mat-footer-cell,
+    .mat-header-cell {
+      align-items: flex-start;
+    }
+  }
+
+  /***/
+
+  &__paginator {
+    position: sticky;
+    bottom: 24px;
+    left: 100%;
+    max-width: 250px;
+    border-radius: 24px;
+    margin-right: 12px;
+    margin-top: 12px;
+    box-shadow:1px 1px 13px 0px rgba(0,0,0,0.2);
+  }
+
+  &__paginatorOffset {
+      margin-bottom: 50px;
+  }
+}

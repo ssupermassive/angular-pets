@@ -1,0 +1,23 @@
+.ft-QuestionsList {
+
+    &__template {
+        height: 42px;
+    }
+
+    &__nameTemplate {
+        &-code {
+            height: 21px;
+        }
+    }
+
+    &__categoryTemplate {
+        flex-grow : 1;
+        text-align: right;
+    }
+
+    &__item {
+        &-unpublish {
+            color: #8991a9;
+        }
+    }
+}

@@ -1,0 +1,214 @@
+$max_generated_selector_count: 5;
+$warning_color : #dc3545;
+$primary_color : #007bff;
+$success_color : #28a745;
+$secondary_color : #6c757d;
+$warning_hover_color : #c82333;
+$primary_hover_color : #0069d9;
+$success_hover_color : #218838;
+$secondary_hover_color : #5a6268;
+
+@import '../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~highlight.js/styles/github.css';
+
+html,
+body {
+  height: 100%;
+  min-height: 100%;
+  max-height: 100%;
+  color: #000000;
+}
+
+body {
+  font-size: 14px;
+}
+
+button:focus,
+input:focus,
+textarea:focus {
+  outline: none !important;
+}
+
+input[type='checkbox'],
+input[type='radio'] {
+  width: 16px;
+  min-width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+input[type='text'].ng-touched.ng-invalid,
+textarea.ng-touched.ng-invalid {
+  border: 1px solid $warning_color;
+}
+
+@for $i from 0 to $max_generated_selector_count + 1 {
+  .ft-flex-shrink-#{$i} {
+    flex-shrink: $i;
+  }
+}
+
+@for $i from 0 to $max_generated_selector_count + 1 {
+  .ft-flex-grow-#{$i} {
+    flex-grow: $i;
+  }
+}
+
+.ft {
+  &-height100percent {
+    height: 100%;
+    min-height: 0px;
+  }
+
+  &-text-align {
+    &-center {
+      text-align: center;
+    }
+  }
+
+  &-validation-error {
+    padding: 4px;
+    border: 1px dashed $warning_color;
+    font-size: 15px;
+    border-radius: 8px;
+  }
+
+  &-hidden {
+    display: none;
+  }
+
+  &-flexbox {
+    display: flex;
+  }
+
+  &-flex {
+    &-column {
+      flex-direction: column;
+    }
+
+    &-wrap {
+      flex-wrap: wrap;
+    }
+
+    &-container {
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 1;
+      flex-grow: 1;
+      height: 100%;
+      min-height: 0;
+    }
+  }
+
+  &-align-items {
+    &-center {
+      align-items: center;
+    }
+
+    &-start {
+      align-items: flex-start;
+    }
+
+    &-end {
+      align-items: flex-end;
+    }
+
+    &-baseline {
+      align-items: baseline;
+    }
+  }
+
+  &-justify-content {
+    &-start {
+      justify-content: flex-start;
+    }
+
+    &-end {
+      justify-content: flex-end;
+    }
+
+    &-center {
+      justify-content: center;
+    }
+
+    &-evently {
+      justify-content: space-evenly;
+    }
+
+    &-between {
+      justify-content: space-between;
+    }
+
+    &-around {
+      justify-content: space-around;
+    }
+  }
+
+  &-cursor {
+    &-pointer {
+      cursor: pointer;
+    }
+  }
+
+  &-overflow {
+    &-hidden {
+      overflow: hidden;
+    }
+  }
+
+  &-text-ellipsis {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &-primary {
+    color: $primary_color;
+
+    &:hover {
+      color: $primary_hover_color;
+    }
+  }
+
+  &-success {
+    color: $success_color;
+
+    &:hover {
+      color: $success_hover_color;
+    }
+  }
+
+  &-secondary {
+    color: $secondary_color;
+
+    &:hover {
+      color: $secondary_hover_color;
+    }
+  }
+
+  &-warning {
+    color: $warning_color;
+
+    &:hover {
+      color: $warning_hover_color;
+    }
+  }
+}
+
+// Надстройка над material - классами
+.mat {
+  &-icon {
+    cursor: pointer;
+
+    &.mat-icon-small {
+      font-size: 18px;
+      height: 18px;
+      width: 18px;
+    }
+  }
+
+  // отключение ховера по чек - боксу
+  &-ripple { 
+    display: none; 
+  }
+}

@@ -1,0 +1,12 @@
+.ft-Tree {
+    border-top: 1px solid #ccc;
+    & .mat-tree-node {
+        min-height: 30px !important;
+    }
+
+    &__empty {
+        text-align: center;
+        padding: 0 24px;
+        width: 100%;
+    }
+}

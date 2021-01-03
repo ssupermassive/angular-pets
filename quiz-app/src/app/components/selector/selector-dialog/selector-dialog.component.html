@@ -1,0 +1,9 @@
+<div class="ft-SelectorDialog">
+  <div class="ft-SelectorDialog__header ft-flexbox ft-justify-content-between">
+    <div class="ft-SelectorDialog__header-title ft-flex-grow-1 ft-flex-grow-1">{{ dialogTitle }}</div>
+    <mat-icon (click)="closeButtonClick()" class="ft-flex-grow-0 ft-flex-grow-0" title="Закрыть">close</mat-icon>
+  </div>
+  <div class="ft-SelectorDialog__content">
+    <ng-content></ng-content>
+  </div>
+</div>

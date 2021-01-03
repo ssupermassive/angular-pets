@@ -1,0 +1,11 @@
+<ft-tree 
+  nodeProperty="itemType"
+  parentProperty="parent"
+  displayProperty="name" 
+  (itemClick)="itemClickHandler($event)"
+  [dataSource]="dataSource" 
+  [rowTemplate]="rowTemplate"
+  [rowActions]="rowActions"
+  [markedKey]="markedKey"
+  keyProperty="id">
+</ft-tree>

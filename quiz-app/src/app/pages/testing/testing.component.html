@@ -1,0 +1,52 @@
+<ft-page [showFooter]="false" [scrolledContent]="false" [headerButtonsConfig]="{userButton: false, addQuestion: false}">
+  <div class="ft-TestingPage ft-flexbox" *ngIf="_questions && _questions.length">
+    <div class="ft-TestingPage__leftContainer ft-flexbox ft-flex-column ft-flex-shrink-0">
+      <div class="ft-TestingPage__info ft-flexbox ft-align-items-center ft-text-ellipsis">
+        <div class="ft-TestingPage__info-title ft-flex-grow-1 ft-flex-shrink-1 ft-text-ellipsis" title="{{testName}}">
+          {{quizController.testName}}</div>
+        <ft-timer class="ft-TestingPage__info-timer ft-flex-grow-0 ft-flex-shrink-0" (timeIsOver)="_timeIsOver()"
+          [time]="quizController.testingTime">
+        </ft-timer>
+      </div>
+      <div class="ft-TestingPage__separator"></div>
+      <ft-question-selector *ngIf="!_showFeedback" class="ft-TestingPage__selector"
+        [selected]="currentQuestion && currentQuestion.id" [questions]="_questions"
+        (selectedChanged)="_changeCurrentQuestion($event)">
+      </ft-question-selector>
+      <button *ngIf="!_showFeedback" class="ft-TestingPage__feedback-show" mat-stroked-button color="warn"
+        (click)="_toggleFeedbackField(true)">
+        Заметили ошибку?
+      </button>
+      <mat-form-field *ngIf="_showFeedback"
+        class="ft-TestingPage__feedback-textareaContainer ft-flexbox ft-flex-column">
+        <mat-label>Опишите, в чём заключается ошибка</mat-label>
+        <textarea [(ngModel)]="_feedbackText" [class.ft-TestingPage__feedback-textarea]="true" matInput [mat-autosize]
+          [matAutosizeMaxRows]="6" [matAutosizeMinRows]="1"></textarea>
+      </mat-form-field>
+      <div class="ft-flexbox">
+        <button [disabled]="!_feedbackText" *ngIf="_showFeedback" class="ft-TestingPage__feedback-hide"
+          mat-stroked-button color="primary" (click)="_sendFeedback()">
+          Отправить
+        </button>
+        <button *ngIf="_showFeedback" class="ft-TestingPage__feedback-cancel" mat-stroked-button color="warn"
+          (click)="_toggleFeedbackField(false)">
+          Отмена
+        </button>
+      </div>
+    </div>
+    <ft-scroll-container class="ft-TestingPage__questionContainer">
+      <ft-testing-form [question]="currentQuestion" (answerReceived)="_answerReceived($event)"
+        class="ft-TestingPage__question ft-flex-grow-1 ft-flex-shrink-1">
+      </ft-testing-form>
+    </ft-scroll-container>
+  </div>
+  <div class="ft-TestingPage__empty ft-flexbox ft-flex-column ft-justify-content-center ft-align-items-center"
+    *ngIf="!(_questions && _questions.length)">
+    <h1 class="ft-TestingPage__empty-text">
+      К сожалению тест ещё не создан :(
+    </h1>
+    <button class="ft-TestingPage__empty-back btn btn-secondary" (click)="this.quizController.clear()">
+      Вернуться на главную
+    </button>
+  </div>
+</ft-page>

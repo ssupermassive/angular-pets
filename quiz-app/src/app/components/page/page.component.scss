@@ -1,0 +1,16 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 1;
+    flex-grow: 1;
+    height: 100%;
+    width: 100%;
+    min-height: 0;
+    min-width: 0;
+}
+
+.ft-Page {
+    &__scrolledContent {
+        overflow-y: scroll;
+    }
+}

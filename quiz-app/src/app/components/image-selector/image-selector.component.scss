@@ -1,0 +1,30 @@
+.ft-Image {
+    &__main {
+        position: relative;
+        border: 1px solid #CCC;
+
+        &:hover .ft-Image__panel {
+            display: flex;
+        }
+    }
+
+    &__image,
+    &__main {
+        border-radius: 8px;
+    }
+
+    &__image,
+    &__panel {
+        border: 1px solid transparent;
+    }
+
+    &__panel {
+        width: 100%;
+        position: absolute;
+        display: none;
+        bottom: 0;
+        background-color: azure;
+        border-radius: 0 0 8px 8px;
+        padding: 2px 0;
+    }
+}

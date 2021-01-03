@@ -1,0 +1,21 @@
+<ft-grid class="ft-QuestionsList" (itemClick)="_itemClick($event)" (selectionChanged)="_selectionChanged($event)"
+  [dataSource]="_dataSource" [itemActions]="_itemActions" [getRowClasses]="_getGridRowClasses"
+  [multiselect]="_multiselect" [paging]="{pageSize: 30}" columnVAlign="top" keyProperty="id">
+  <gridColumn name="Text" headerCaption="Текст" [template]="nameTemplate">
+    <ng-template #nameTemplate let-item="item">
+      <div
+        class="ft-QuestionsList__template ft-QuestionsList__nameTemplate ft-flexbox ft-flex-grow-1 ft-flex-shrink-1 ft-flex-column ft-text-ellipsis">
+        <div class="ft-QuestionsList__nameTemplate-text ft-text-ellipsis" title="{{ item.text }}">{{item.text}}</div>
+        <div class="ft-QuestionsList__nameTemplate-code ft-text-ellipsis" title="{{ item.code }}">{{item.code}}</div>
+      </div>
+    </ng-template>
+  </gridColumn>
+  <gridColumn name="Category" headerCaption="Категория" [template]="categoryTemplate" width="300px">
+    <ng-template #categoryTemplate let-item="item">
+      <div class="ft-QuestionsList__template ft-QuestionsList__categoryTemplate ft-text-ellipsis"
+        title="{{ item.categoryName }}">
+        {{ item.categoryName }}
+      </div>
+    </ng-template>
+  </gridColumn>
+</ft-grid>

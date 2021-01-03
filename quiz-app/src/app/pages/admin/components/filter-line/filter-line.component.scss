@@ -1,0 +1,28 @@
+.ft-FilterLine {
+  &__main {
+    min-height: 32px;
+    background-color: white;
+  }
+
+  &__publishFilter {
+    margin-right: 12px;
+    font-size: 15px;
+    max-width: 160px;
+    text-align-last: right;
+
+    .mat-select-arrow,
+    .mat-select-value-text {
+      color: blue;
+    }
+
+    &Panel {
+      .mat-option {
+        text-align: right;
+      }
+
+      .mat-option-text {
+        color: blue;
+      }
+    }
+  }
+}

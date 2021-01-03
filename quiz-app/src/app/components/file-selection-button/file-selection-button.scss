@@ -1,0 +1,20 @@
+:host {
+    position: relative;
+    height: 24px;
+    width: 24px;
+    cursor: pointer;
+}
+
+.ft-AttachButton {
+    &__input {
+        position: absolute;
+        left: 0;
+        right: 0;
+        opacity: 0;
+        height: 24px;
+        width: 24px;
+        max-width: 24px;
+        z-index: 1;
+        overflow: hidden;
+    }
+}

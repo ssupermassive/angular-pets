@@ -1,0 +1,7 @@
+.ft-SelectorLink {
+    &__text {
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
