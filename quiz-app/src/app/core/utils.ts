@@ -41,3 +41,32 @@ export function transformToQuestions(list: IQuestion[]): Question[] {
 export function transformToQuestion(question: IQuestion): Question {
   return new Question(question);
 }
+
+export function clone(obj: any, deep?: boolean) {
+
+  if (Array.isArray(obj)) {
+    if (deep) {
+      return obj.map((item: any) => {
+        return clone(item, deep);
+      })
+    } else {
+      return [...obj];
+    }
+  }
+
+  if (obj instanceof Object) {
+    if (deep) {
+      const result = {};
+      Object.keys(obj).forEach((key: string) => {
+        if (obj.hasOwnProperty(key)) {
+          result[key] = clone(obj[key], deep);
+        }
+      });
+      return result;
+    } else {
+      return { ...obj }
+    }
+  }
+
+  return obj;
+}

@@ -15,7 +15,7 @@ const QUESTIONS: IQuestion[] = [];
 @Injectable()
 export class QuestionsService {
 
-  constructor(private localStorage: LocalStorageService) { 
+  constructor(private localStorage: LocalStorageService) {
     const storageData = this.localStorage.getItem(LOCAL_STORAGE_TOKEN);
 
     if (storageData) {
@@ -87,10 +87,17 @@ export class QuestionsService {
   getList(filter: IQuestionsQueryFilter = {}): Observable<Question[]> {
     let data = this.data;
 
-    if ('category' in filter) {
-      data = data.filter(
-        (q: IQuestion) => !!(q.category.id === filter.category || q.subcategory?.id === filter.category)
-      );
+    if ('category' in filter && filter.category !== null) {
+
+      if (filter.category === -1) {
+        data = data.filter(
+          (q: IQuestion) => !q.subcategory
+        );
+      } else {
+        data = data.filter(
+          (q: IQuestion) => !!(q.category.id === filter.category || q.subcategory?.id === filter.category)
+        );
+      }
     }
 
     if ('publish' in filter) {
@@ -115,7 +122,7 @@ export class QuestionsService {
    */
   public changePublish(id: number, publish: boolean): Observable<boolean> {
     this.data = this.data.map((q: IQuestion) => {
-      if(q.id === id) {
+      if (q.id === id) {
         q.publish = publish;
       }
       return q;
@@ -132,7 +139,7 @@ export class QuestionsService {
    */
   changePublishMass(ids: number[], publish: boolean): Observable<boolean> {
     this.data = this.data.map((q: IQuestion) => {
-      if(ids.includes(q.id)) {
+      if (ids.includes(q.id)) {
         q.publish = publish;
       }
       return q;

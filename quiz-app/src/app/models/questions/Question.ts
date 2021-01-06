@@ -149,6 +149,17 @@ export class Question implements IQuestion {
         return '';
     }
 
+    get fullCategoryName(): string {
+        const subcategoryName = this.subcategoryName;
+
+        if (subcategoryName) {
+            return `${this.category.name}: ${subcategoryName}`
+
+        }
+
+        return this.category?.name || '';
+    }
+
     /**
      * Создает копию текущего вопроса
      */

@@ -1,49 +1,27 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { ICategory, ICategoryQueryFilter } from 'src/app/models/categories';
-import { LocalStorageService } from 'src/app/core';
-
-const LOCAL_STORAGE_TOKEN = 'FT_CATEGORIES_DATA';
-
-const CATEGORIES = [
-  {
-    id: 1,
-    name: 'JavaScript',
-    description: '',
-    publish: true,
-    itemType: true,
-    parent: null,
-    service: true,
-  }
-];
+import { CategoriesStorageService } from './categories-storage.service';
+import { clone } from 'src/app/core/utils';
 
 /**
  * Сервис для работы с категориями
  * @author Серпаков С.А.
  */
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class CategoriesService {
 
-  constructor(private localStorage: LocalStorageService) {
-    const storageData = this.localStorage.getItem(LOCAL_STORAGE_TOKEN);
-
-    if (storageData) {
-      this.data = storageData;
-      return;
-    }
-
-    this.data = CATEGORIES;
-  }
-
-  private data: ICategory[] = CATEGORIES;
+  constructor(private storage: CategoriesStorageService) {}
 
   /**
    * Чтения категории по её идентификатору
    * @param id
    */
   public read(id: number): Observable<ICategory> {
-    return of(this.data.find((category: ICategory) => category.id === id));
+    return of(this.storage.data.find((category: ICategory) => category.id === id));
   }
 
   /**
@@ -52,7 +30,7 @@ export class CategoriesService {
    */
   public update(category: ICategory): Observable<boolean> {
 
-    this.data = this.data.map((c: ICategory) => {
+    const data = this.storage.data.map((c: ICategory) => {
       if (c.id === category.id) {
         return category;
       }
@@ -60,7 +38,7 @@ export class CategoriesService {
       return c;
     });
 
-    this.localStorage.setItem(LOCAL_STORAGE_TOKEN, this.data);
+    this.storage.updateData(data);
 
     return of(true);
   }
@@ -71,11 +49,12 @@ export class CategoriesService {
    */
   public create(category: ICategory): Observable<ICategory> {
 
+    const data = { ...this.storage.data};
     const c = { ...category };
     c.id = Date.now();
-    this.data.push(c);
+    data.push(c);
 
-    this.localStorage.setItem(LOCAL_STORAGE_TOKEN, this.data);
+    this.storage.updateData(data);
 
     return of(c);
   }
@@ -85,8 +64,8 @@ export class CategoriesService {
    * @param id
    */
   public delete(id: number): Observable<boolean> {
-    this.data = this.data.filter((c: ICategory) => c.id !== id);
-    this.localStorage.setItem(LOCAL_STORAGE_TOKEN, this.data);
+    const data = this.storage.data.filter((c: ICategory) => c.id !== id);
+    this.storage.updateData(data);
 
     return of(true);
   }
@@ -97,7 +76,8 @@ export class CategoriesService {
    */
   getList(filter: ICategoryQueryFilter = {}): Observable<ICategory[]> {
 
-    let data = this.data;
+    // ToDo тут нужно глубокое копирование
+    let data = clone(this.storage.data, true);
 
     if ('itemType' in filter) {
       data = data.filter((c: ICategory) => c.itemType === filter.itemType);
@@ -117,14 +97,16 @@ export class CategoriesService {
           id: null,
           name: 'Все категории',
           parent: null,
-          itemType: false
+          itemType: false,
+          service: true
         }],
         ...data,
         ...[{
           id: -1,
           name: 'Без подкатегорий',
           parent: null,
-          itemType: false
+          itemType: false,
+          service: true
         }]
       ]
     }
@@ -153,14 +135,14 @@ export class CategoriesService {
    * @param publish
    */
   changePublish(id: number, publish: boolean): Observable<boolean> {
-    this.data = this.data.map((c: ICategory) => {
+    const data = this.storage.data.map((c: ICategory) => {
       if(c.id === id) {
         c.publish = publish;
       }
       return c;
     });
 
-    this.localStorage.setItem(LOCAL_STORAGE_TOKEN, this.data);
+    this.storage.updateData(data);
     return of(true);
   }
 
@@ -169,14 +151,14 @@ export class CategoriesService {
    * @param id
    */
   convertToNode(id: number): Observable<void> {
-    this.data = this.data.map((c: ICategory) => {
+    const data = this.storage.data.map((c: ICategory) => {
       if(c.id === id) {
         c.itemType = true;
       }
       return c;
     });
 
-    this.localStorage.setItem(LOCAL_STORAGE_TOKEN, this.data);
+    this.storage.updateData(data);
     return of();
   }
 
@@ -186,14 +168,14 @@ export class CategoriesService {
    * @param parent
    */
   changeParent(id: number, parent: number): Observable<void> {
-    this.data = this.data.map((c: ICategory) => {
+    const data = this.storage.data.map((c: ICategory) => {
       if(c.id === id) {
         c.parent = parent;
       }
       return c;
     });
 
-    this.localStorage.setItem(LOCAL_STORAGE_TOKEN, this.data);
+    this.storage.updateData(data);
     return of();
   }
 }
