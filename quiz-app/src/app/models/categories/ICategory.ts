@@ -1,11 +1,12 @@
 import { SafeResourceUrl } from '@angular/platform-browser';
+import { IService } from '../IService.model';
 import { IBaseCategory } from './IBaseCategory';
 
 /**
  * Интерфейс, описывающий категорию
  * @author Серпаков С.А.
  */
-export interface ICategory extends IBaseCategory {
+export interface ICategory extends IBaseCategory, IService {
   /**
    * Описание категории
    */
@@ -34,9 +35,4 @@ export interface ICategory extends IBaseCategory {
    * Ключ изображения
    */
   imageKey?: number;
-
-  /**
-   * Признак, что запись является служебной
-   */
-  service?: boolean
 }

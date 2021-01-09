@@ -48,6 +48,9 @@ export class QuestionsListComponent implements OnInit, OnChanges, OnDestroy {
       iconStyle: 'primary',
       title: 'Создать на основе',
       handler: this._createBased.bind(this),
+      visibilityCallback: (item: Question) => {
+        return !item.service;
+      }
     },
     {
       icon: 'check_circle_outline',
@@ -55,7 +58,7 @@ export class QuestionsListComponent implements OnInit, OnChanges, OnDestroy {
       title: 'Опубликовать',
       handler: this._publishChange.bind(this, true),
       visibilityCallback: (item: Question) => {
-        return !item.publish;
+        return !item.publish && !item.service;
       }
     },
     {
@@ -64,14 +67,17 @@ export class QuestionsListComponent implements OnInit, OnChanges, OnDestroy {
       title: 'Снять с публикации',
       handler: this._publishChange.bind(this, false),
       visibilityCallback: (item: Question) => {
-        return item.publish;
+        return item.publish && !item.service;
       }
     },
     {
       icon: 'close',
       iconStyle: 'warning',
       title: 'Удалить',
-      handler: this._delete.bind(this)
+      handler: this._delete.bind(this),
+      visibilityCallback: (item: Question) => {
+        return !item.service;
+      }
     }
   ];
 

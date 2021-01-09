@@ -18,7 +18,6 @@ import { Subscription } from 'rxjs';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ConfirmationService } from 'src/app/components/confirmation';
-import { FileService } from 'src/app/services/file.service';
 import { IDialogOptions } from '../interfaces';
 import { Question, IQuestionOption } from 'src/app/models/questions';
 import { IBaseCategory } from 'src/app/models/categories';
@@ -42,11 +41,6 @@ interface ICreateFormData {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class QuestionDialogComponent implements OnInit, OnDestroy {
-
-  /**
-   * Заголовок диалога
-   */
-  dialogTitle: string;
 
   /**
    * Сообщение об ошибке в вопросе
@@ -124,6 +118,11 @@ export class QuestionDialogComponent implements OnInit, OnDestroy {
   categoryControl: FormControl;
   subcategoryControl: FormControl;
 
+  /**
+   * Является ли вопрос служебным
+   */
+  service: boolean = false;
+
   private _subscription: Subscription = new Subscription();
 
   /***/
@@ -134,16 +133,15 @@ export class QuestionDialogComponent implements OnInit, OnDestroy {
     private questionService: QuestionsService,
     private categoryService: CategoriesService,
     private confirmation: ConfirmationService,
-    private fileService: FileService,
     private changeDetector: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
     this.question = this.data.question;
-    this.dialogTitle = this.question && this.question.id ? 'Редактировать вопрос' : 'Добавить вопрос';
 
     this.feedback = this.data.feedback;
     if (this.question && this.question.id) {
+      this.service = this.question.service;
       this.submitButtonCaption = 'Сохранить';
       this.codeAreaExpand = !!this.question.code;
       this.explanationAreaExpand = !!this.question.explanation;

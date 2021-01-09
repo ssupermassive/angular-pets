@@ -42,6 +42,11 @@ export function transformToQuestion(question: IQuestion): Question {
   return new Question(question);
 }
 
+/**
+ * Клонирует переданный обьект obj. Если переданно примитивное значение, то просто его возвращает
+ * @param obj
+ * @param deep - включает глубокое клонирование
+ */
 export function clone(obj: any, deep?: boolean) {
 
   if (Array.isArray(obj)) {

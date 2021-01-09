@@ -33,6 +33,7 @@ export class SelectorLinkComponent implements ControlValueAccessor  {
   @Input() emptyText: string;
   @Input() displayProperty: string;
   @Input() selectorConfig: IDialogOptions;
+  @Input() enabled: boolean = true;
 
   @Input() set value(value: object) {
     this._selectedItem = value;
@@ -57,7 +58,7 @@ export class SelectorLinkComponent implements ControlValueAccessor  {
    * Открывает диалог выбора
    */
   openSelector(): void {
-    if (this.selectorConfig) {
+    if (this.selectorConfig && this.enabled) {
       const subscription = this.opener.openDialog(
         this.selectorConfig
       ).subscribe((selected?: object) => {

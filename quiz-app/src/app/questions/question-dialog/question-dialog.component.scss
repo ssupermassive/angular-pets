@@ -79,10 +79,10 @@
 
   &__categories {
     margin-bottom: 8px;
-  }
 
-  &__subcategory {
-    margin-left: 12px;
+    &-colon {
+      margin: 0 4px;
+    }
   }
 
   &__header {

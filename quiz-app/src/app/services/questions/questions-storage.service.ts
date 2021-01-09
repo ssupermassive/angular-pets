@@ -17,7 +17,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Переменные"
     },
     code: "",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609840262731,
@@ -33,7 +34,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Приведение типов"
     },
     code: "alert(true + false)",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609873155491,
@@ -49,7 +51,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Приведение типов"
     },
     code: "alert('1' == 1)",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609873164850,
@@ -65,7 +68,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Приведение типов"
     },
     code: "alert('1' === 1)",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609873510630,
@@ -81,7 +85,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Функции"
     },
     code: "function returnValue() {\n const value = 10;\n return\n value;\n}\n\nalert(returnValue());",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609873763387,
@@ -97,7 +102,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Типы данных"
     },
     code: "",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609873858914,
@@ -113,7 +119,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Типы данных"
     },
     code: "",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609873964033,
@@ -129,7 +136,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Типы данных"
     },
     code: "alert(.45)",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609874008608,
@@ -145,7 +153,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Типы данных"
     },
     code: "alert(.45)",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609874086920,
@@ -161,7 +170,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Переменные"
     },
     code: "let a = 1;\na++;\nalert(a)",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609874174615,
@@ -177,7 +187,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Переменные"
     },
     code: "const a = 1;\na++;\nalert(a)",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609874458772,
@@ -193,7 +204,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Замыкание"
     },
     code: "const a = \"Hello\";\n\nfunction alertA() {\n alert(a);\n}\n\nalertA();",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609874494938,
@@ -209,7 +221,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Замыкание"
     },
     code: "const a = \"Hello\";\n\nfunction alertA() {\n const a;\n alert(a);\n}\n\nalertA();",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609874524058,
@@ -225,7 +238,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Замыкание"
     },
     code: "const a = \"Hello\";\n\nfunction alertA() {\n const a = \"Hi\";\n alert(a);\n}\n\nalertA();",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609874558729,
@@ -241,7 +255,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Замыкание"
     },
     code: "const a = \"Hello\";\n\nfunction alertA() {\n let a;\n alert(a);\n}\n\nalertA();",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609875383146,
@@ -257,7 +272,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Свойство display"
     },
     code: "",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609875401722,
@@ -273,7 +289,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Свойство display"
     },
     code: "",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609875452784,
@@ -289,7 +306,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Позиционирование"
     },
     code: "",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609875501704,
@@ -305,7 +323,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Позиционирование"
     },
     code: "",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609875784293,
@@ -321,7 +340,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Единицы измерения"
     },
     code: "",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609875916883,
@@ -337,7 +357,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Единицы измерения"
     },
     code: "",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609875952427,
@@ -353,7 +374,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Отступы"
     },
     code: "",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609875964610,
@@ -369,7 +391,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Отступы"
     },
     code: "",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609876048362,
@@ -385,7 +408,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Свойство display"
     },
     code: "",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609876060114,
@@ -401,7 +425,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Свойство display"
     },
     code: "",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609876092857,
@@ -417,7 +442,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Свойство display"
     },
     code: "",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609876145872,
@@ -433,7 +459,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Свойство z - index"
     },
     code: "",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609876195312,
@@ -449,7 +476,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Единицы измерения"
     },
     code: "",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609876236905,
@@ -465,7 +493,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Единицы измерения"
     },
     code: "",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609876427662,
@@ -481,7 +510,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Flexbox"
     },
     code: "",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609877713556,
@@ -497,7 +527,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Теги"
     },
     code: "",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609877768360,
@@ -513,7 +544,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Теги"
     },
     code: "",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609877794640,
@@ -529,7 +561,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Теги"
     },
     code: "",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609877818840,
@@ -545,7 +578,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Теги"
     },
     code: "",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609877846087,
@@ -561,7 +595,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Теги"
     },
     code: "",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609877870591,
@@ -577,7 +612,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Таблицы"
     },
     code: "",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609877886078,
@@ -593,7 +629,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Таблицы"
     },
     code: "",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609877924813,
@@ -609,7 +646,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Таблицы"
     },
     code: "",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609877945125,
@@ -625,7 +663,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Теги"
     },
     code: "",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609877966173,
@@ -641,7 +680,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Теги"
     },
     code: "",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609877992820,
@@ -657,7 +697,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Теги"
     },
     code: "",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609878027292,
@@ -673,7 +714,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Типы элементов"
     },
     code: "",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609878053597,
@@ -689,7 +731,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Типы элементов"
     },
     code: "",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609878077171,
@@ -705,7 +748,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Типы элементов"
     },
     code: "",
-    explanation: ""
+    explanation: "",
+    service: true
   },
   {
     id: 1609878100852,
@@ -721,7 +765,8 @@ const QUESTIONS: IQuestion[] = [
       name: "Типы элементов"
     },
     code: "",
-    explanation: ""
+    explanation: "",
+    service: true
   }
 ]
 

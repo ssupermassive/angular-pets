@@ -1,5 +1,10 @@
-<div class="ft-SelectorLink ft-flexbox ft-align-items-center ft-flex-grow-0 ft-cursor-pointer" (click)="openSelector()">
-  <div class="ft-SelectorLink__text ft-primary">{{ value && value[displayProperty] || emptyText }}</div>
-  <mat-icon *ngIf="!!value" class="ft-SelectorLink__cancel mat-icon-small ft-flex-grow-0 ft-flex-shrink-0" 
+<div class="ft-SelectorLink ft-SelectorLink__{{enabled ? 'enabled' : 'disabled'}} ft-flexbox ft-align-items-center ft-flex-grow-0"
+     [class.ft-cursor-pointer]="enabled"
+     (click)="openSelector()">
+  <div class="ft-SelectorLink__text {{ enabled ? 'ft-SelectorLink__text-hover' : '' }}"
+       [class.ft-primary]="enabled">
+    {{ value && value[displayProperty] || emptyText }}
+  </div>
+  <mat-icon *ngIf="!!value && enabled" class="ft-SelectorLink__cancel mat-icon-small ft-flex-grow-0 ft-flex-shrink-0" 
             (click)="resetItem($event)">close</mat-icon>
 </div>

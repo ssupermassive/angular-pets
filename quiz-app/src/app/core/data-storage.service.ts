@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { LocalStorageService } from './local-storage.service';
 
 /**
- * Абстрактный сервис хранилища
+ * Абстрактный класс хранилища данных.
  * Содержит логику получения и сохранения данных по токену
  */
 export abstract class DataStorageService<T> {

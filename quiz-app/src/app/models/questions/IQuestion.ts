@@ -1,10 +1,11 @@
 import { IQuestionOption } from './IQuestionOption';
+import { IService } from '../IService.model';
 
 /**
  * Интерфейс, описывающий вопрос
  * @author Серпаков С.А.
  */
-export interface IQuestion {
+export interface IQuestion extends IService {
   /**
    * Идентификатор вопроса
    */

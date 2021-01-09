@@ -19,6 +19,7 @@ export class Question implements IQuestion {
     explanation?: string;
     image?: string;
     imageKey?: number;
+    service?: boolean;
 
     /**
      * Был дан ответ на вопрос
@@ -40,6 +41,7 @@ export class Question implements IQuestion {
         this.explanation = data.explanation;
         this.image = data.image;
         this.imageKey = data.imageKey;
+        this.service = data.service;
     }
 
     get opts(): IQuestionOption[] {
