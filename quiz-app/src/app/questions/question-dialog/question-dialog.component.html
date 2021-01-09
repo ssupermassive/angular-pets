@@ -69,8 +69,8 @@
           </mat-icon>
         </div>
         <div>
-          <mat-icon class="ft-QuestionDialog__сodePreview-toggle" (click)="toggleCodePreview()"
-            title="Предпросмотр кода" *ngIf="codeAreaExpand">tv</mat-icon>
+          <mat-icon *ngIf="codeAreaExpand && !service" class="ft-QuestionDialog__сodePreview-toggle" (click)="toggleCodePreview()"
+            title="Предпросмотр кода">tv</mat-icon>
         </div>
       </div>
       <!-- Код вопроса -->
@@ -116,7 +116,7 @@
               cdkAutosizeMinRows="3" cdkAutosizeMaxRows="4"
               class="ft-QuestionDialog__field ft-QuestionDialog__areatext ft-QuestionDialog__form-textField-autoresize"
               formControlName="text"></textarea>
-            <div class="ft-QuestionDialog__actions ft-flexbox ft-flex-column ft-align-items-center">
+            <div *ngIf="!service" class="ft-QuestionDialog__actions ft-flexbox ft-flex-column ft-align-items-center">
               <input title="Правильный ответ" class="ft-QuestionDialog__isRightAnswer" type="checkbox"
                 formControlName="isRight" />
               <mat-icon cdkDragHandle class="ft-QuestionDialog__actionMove ft-primary" title="Переместить">
