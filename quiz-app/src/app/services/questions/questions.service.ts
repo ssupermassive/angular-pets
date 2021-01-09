@@ -3,10 +3,7 @@ import { Observable, of } from 'rxjs';
 
 import { Question, IQuestion } from 'src/app/models/questions';
 import { IQuestionsQueryFilter } from 'src/app/models/questions/IQuestionsQueryFIlter';
-import { LocalStorageService } from 'src/app/core';
-
-const LOCAL_STORAGE_TOKEN = 'FT_QUESTIONS_DATA';
-const QUESTIONS: IQuestion[] = [];
+import { QuestionsStorageService } from './questions-storage.service';
 
 /**
  * Сервис, отвечающий за работу с вопросами
@@ -15,18 +12,7 @@ const QUESTIONS: IQuestion[] = [];
 @Injectable()
 export class QuestionsService {
 
-  constructor(private localStorage: LocalStorageService) {
-    const storageData = this.localStorage.getItem(LOCAL_STORAGE_TOKEN);
-
-    if (storageData) {
-      this.data = storageData;
-      return;
-    }
-
-    this.data = QUESTIONS;
-  }
-
-  private data: IQuestion[];
+  constructor(private storage: QuestionsStorageService) {}
 
   /**
    * Создание вопроса
@@ -35,13 +21,13 @@ export class QuestionsService {
    */
   public create(question: IQuestion): Observable<any> {
 
-    const q = new Question(question);
-    q.id = Date.now();
-    this.data.push(q);
+    const newQuestion = new Question(question);
+    newQuestion.id = Date.now();
+    const data = [newQuestion, ...this.storage.data];
 
-    this.localStorage.setItem(LOCAL_STORAGE_TOKEN, this.data);
+    this.storage.updateData(data);
 
-    return of(q);
+    return of(newQuestion);
   }
 
   /**
@@ -49,7 +35,7 @@ export class QuestionsService {
    * @param id
    */
   public read(id: number): Observable<Question> {
-    return of(new Question(this.data.find((q: IQuestion) => q.id === id)));
+    return of(new Question(this.storage.data.find((q: IQuestion) => q.id === id)));
   }
 
   /**
@@ -57,8 +43,8 @@ export class QuestionsService {
    * @param id
    */
   public delete(id: number): Observable<boolean> {
-    this.data = this.data.filter((c: IQuestion) => c.id !== id);
-    this.localStorage.setItem(LOCAL_STORAGE_TOKEN, this.data);
+    const data = this.storage.data.filter((c: IQuestion) => c.id !== id);
+    this.storage.updateData(data);
 
     return of(true);
   }
@@ -68,7 +54,7 @@ export class QuestionsService {
    * @param question
    */
   public update(question: IQuestion): Observable<any> {
-    this.data = this.data.map((q: IQuestion) => {
+    const data = this.storage.data.map((q: IQuestion) => {
       if (q.id === question.id) {
         return new Question(question);
       }
@@ -76,7 +62,7 @@ export class QuestionsService {
       return new Question(q);
     });
 
-    this.localStorage.setItem(LOCAL_STORAGE_TOKEN, this.data);
+    this.storage.updateData(data);
 
     return of(true);
   }
@@ -85,7 +71,7 @@ export class QuestionsService {
    * Получение списка категорий для кабинета администратора
    */
   getList(filter: IQuestionsQueryFilter = {}): Observable<Question[]> {
-    let data = this.data;
+    let data = [...this.storage.data];
 
     if ('category' in filter && filter.category !== null) {
 
@@ -121,14 +107,14 @@ export class QuestionsService {
    * @param publish
    */
   public changePublish(id: number, publish: boolean): Observable<boolean> {
-    this.data = this.data.map((q: IQuestion) => {
+    const data = this.storage.data.map((q: IQuestion) => {
       if (q.id === id) {
         q.publish = publish;
       }
       return q;
     });
 
-    this.localStorage.setItem(LOCAL_STORAGE_TOKEN, this.data);
+    this.storage.updateData(data);
     return of(true);
   }
 
@@ -138,14 +124,14 @@ export class QuestionsService {
    * @param publish
    */
   changePublishMass(ids: number[], publish: boolean): Observable<boolean> {
-    this.data = this.data.map((q: IQuestion) => {
+    const data = this.storage.data.map((q: IQuestion) => {
       if (ids.includes(q.id)) {
         q.publish = publish;
       }
       return q;
     });
 
-    this.localStorage.setItem(LOCAL_STORAGE_TOKEN, this.data);
+    this.storage.updateData(data);
     return of(true);
   }
 }

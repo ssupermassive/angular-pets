@@ -156,12 +156,13 @@ const CATEGORIES = [
     parent: 3,
     service: true,
   }
-  
 ];
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoriesStorageService extends DataStorageService<ICategory> {
-  data: ICategory[] = CATEGORIES;
+  constructor() {
+    super(CATEGORIES, 'FT_CATEGORIES_DATA');
+  }
 }

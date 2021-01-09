@@ -1,29 +1,26 @@
-import { Injectable } from '@angular/core';
+import { inject } from '@angular/core';
 import { LocalStorageService } from './local-storage.service';
 
 /**
- * Абсрактный сервис хранилища
+ * Абстрактный сервис хранилища
  * Содержит логику получения и сохранения данных по токену
  */
-@Injectable()
 export abstract class DataStorageService<T> {
 
-  /**
-   * Токен для получения/сохранения данных
-   */
-  protected token: string;
+  private localStorage: LocalStorageService;
 
-  /**
-   * Данные
-   */
-  data: T[];
+  constructor(public data: T[], protected token: string) {
 
-  constructor(private localStorage: LocalStorageService) {
+    const localStorage = inject(LocalStorageService);
 
-    const storageData = this.localStorage.getItem(this.token);
+    if (localStorage) {
 
-    if (storageData) {
-      this.data = storageData;
+      this.localStorage = localStorage;
+      const storageData = this.localStorage.getItem(this.token);
+
+      if (storageData) {
+        this.data = [...storageData];
+      }
     }
   }
 

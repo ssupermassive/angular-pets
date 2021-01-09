@@ -48,15 +48,13 @@ export class CategoriesService {
    * @param category
    */
   public create(category: ICategory): Observable<ICategory> {
-
-    const data = { ...this.storage.data};
-    const c = { ...category };
-    c.id = Date.now();
-    data.push(c);
+    const newCategory = { ...category };
+    newCategory.id = Date.now();
+    const data = [ newCategory, ...this.storage.data];
 
     this.storage.updateData(data);
 
-    return of(c);
+    return of(newCategory);
   }
 
   /**
