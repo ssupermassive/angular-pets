@@ -15,9 +15,6 @@
         </mat-icon>
       </div>
       <div class="ft-TestingForm__text">{{ question.text.trim() }}</div>
-      <div class="ft-TestingForm__imgContainer ft-flexbox ft-justify-content-center">
-        <img class="ft-TestingForm__img" *ngIf="question.imageKey" [src]="domSanitizer.bypassSecurityTrustUrl(_src)" />
-      </div>
       <code *ngIf="question.code" class="ft-TestingForm__code" [highlight]="question.code"></code>
       <div class="ft-TestingForm__infoContainer-overlay"></div>
     </div>

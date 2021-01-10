@@ -12,7 +12,6 @@ import {
 import { ActivatedRoute, Data } from '@angular/router';
 import { QuizControllerService, LocalStorageService } from 'src/app/core';
 import { ICategory } from 'src/app/models/categories';
-import { FileService } from 'src/app/services/file.service';
 import {
   trigger,
   state,
@@ -101,7 +100,6 @@ export class HomeComponent implements OnInit, AfterContentInit, OnDestroy {
   }
 
   constructor(
-    public fileService: FileService,
     private localStorage: LocalStorageService,
     private quizController: QuizControllerService,
     private route: ActivatedRoute,

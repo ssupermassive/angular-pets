@@ -11,6 +11,7 @@ const CATEGORIES = [
     itemType: true,
     parent: null,
     service: true,
+    image: '../images/js.jpeg'
   },
   {
     id: 11,
@@ -65,6 +66,7 @@ const CATEGORIES = [
     itemType: true,
     parent: null,
     service: true,
+    image: '../images/html.jpg'
   },
   {
     id: 21,
@@ -101,6 +103,7 @@ const CATEGORIES = [
     itemType: true,
     parent: null,
     service: true,
+    image: '../images/css.jpg'
   },
   {
     id: 31,

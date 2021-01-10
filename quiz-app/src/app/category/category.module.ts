@@ -5,7 +5,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { ImageSelectorModule } from 'src/app/components/image-selector';
 import { ConfirmationModule } from 'src/app/components/confirmation';
 
 import { TreeModule } from '../components/tree';
@@ -33,7 +32,6 @@ import { CategoryDialogComponent } from './category-dialog/category-dialog.compo
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    ImageSelectorModule,
     ConfirmationModule,
   ],
   exports: [

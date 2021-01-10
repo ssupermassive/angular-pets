@@ -3,6 +3,9 @@ import { Observable, of } from 'rxjs';
 import { ICategory, ICategoryQueryFilter } from 'src/app/models/categories';
 import { CategoriesStorageService } from './categories-storage.service';
 import { clone } from 'src/app/core/utils';
+import { DomSanitizer } from '@angular/platform-browser';
+
+const DEFAULT_IMAGE = '../images/tile_img_default.png';
 
 /**
  * Сервис для работы с категориями
@@ -14,7 +17,7 @@ import { clone } from 'src/app/core/utils';
 })
 export class CategoriesService {
 
-  constructor(private storage: CategoriesStorageService) {}
+  constructor(private storage: CategoriesStorageService, private domSanitizer: DomSanitizer) {}
 
   /**
    * Чтения категории по её идентификатору
@@ -78,15 +81,15 @@ export class CategoriesService {
     let data = clone(this.storage.data, true);
 
     if ('itemType' in filter) {
-      data = data.filter((c: ICategory) => c.itemType === filter.itemType);
+      data = data.filter((item: ICategory) => item.itemType === filter.itemType);
     }
 
     if ('parent' in filter) {
-      data = data.filter((c: ICategory) => c.parent === filter.parent);
+      data = data.filter((item: ICategory) => item.parent === filter.parent);
     }
 
     if ('publish' in filter) {
-      data = data.filter((c: ICategory) => c.publish === filter.publish);
+      data = data.filter((item: ICategory) => item.publish === filter.publish);
     }
 
     if (filter.enableServiceCategory) {
@@ -110,14 +113,17 @@ export class CategoriesService {
     }
 
     if (filter.flatList) {
-      data = data.map((c: ICategory) => {
-        c.parent = null,
-        c.itemType = false;
-        return c;
+      data = data.map((item: ICategory) => {
+        item.parent = null,
+        item.itemType = false;
+        return item;
       });
     }
 
-    return of(data);
+    return of(data.map((item: ICategory) => {
+      item.image = this.domSanitizer.bypassSecurityTrustResourceUrl((item.image || DEFAULT_IMAGE) as string);
+      return item;
+    }));
   }
 
   /**

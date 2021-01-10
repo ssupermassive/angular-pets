@@ -15,8 +15,6 @@ import {
   ValidationErrors,
   AbstractControl
 } from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser';
-import { FileService } from 'src/app/services/file.service';
 
 import { Question, QUESTION_TYPES, IQuestionOption } from 'src/app/models/questions';
 
@@ -48,18 +46,13 @@ export class TestingFormComponent implements OnChanges {
   @Output() answerReceived: EventEmitter<any>;
 
   /**
-   * Ссылка на картинку, прикрепленную к вопросу
-   */
-  _src: string;
-
-  /**
    * Контролы формы
    */
   _form: FormGroup = null;
   _checkboxes: FormArray;
   _radio: FormControl;
 
-  constructor(public domSanitizer: DomSanitizer, protected fileService: FileService) {
+  constructor() {
     this.answerReceived = new EventEmitter();
   }
 
@@ -73,10 +66,6 @@ export class TestingFormComponent implements OnChanges {
    * Создание формы исходя из типа вопроса
    */
   private _createForm(): void {
-
-
-    const imageKey = this.question.imageKey;
-    this._src = imageKey ? this.fileService.getFileLink(imageKey) : null;
 
     switch (this.question.type) {
       case QUESTION_TYPES.ONE_RIGHT_ANSWER:
