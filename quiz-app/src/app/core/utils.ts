@@ -1,6 +1,3 @@
-import { IQuestion } from 'src/app/models/questions/IQuestion';
-import { Question } from 'src/app/models/questions/Question';
-
 /**
  * Определяет равенство дву объектов
  * @param obj1;
@@ -26,20 +23,6 @@ export function addParamsToUrl(url: URL, filter: object): void {
       url.searchParams.set(prop, String(filter[prop]));
     }
   }
-}
-
-/**
- * Преобразует ответ БЛ к типу Question
- * @param list;
- */
-export function transformToQuestions(list: IQuestion[]): Question[] {
-  return list.map((question: IQuestion) => {
-    return transformToQuestion(question);
-  });
-}
-
-export function transformToQuestion(question: IQuestion): Question {
-  return new Question(question);
 }
 
 /**

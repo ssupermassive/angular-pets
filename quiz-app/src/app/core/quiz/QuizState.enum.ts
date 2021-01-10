@@ -2,7 +2,7 @@
  * Состояния тестирования
  * @author Серпаков С.А.
  */
-export enum TESTING_STATE {
+export enum QUIZ_STATE {
     NOT_STARTED,
     STARTED,
     COMPLETED,

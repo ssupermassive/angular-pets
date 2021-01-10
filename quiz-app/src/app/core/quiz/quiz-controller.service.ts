@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TESTING_STATE } from './TestingState';
+import { QUIZ_STATE } from './QuizState.enum';
 import { Question } from 'src/app/models/questions';
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../local-storage.service';
@@ -42,7 +42,7 @@ export class QuizControllerService {
   /**
    * Текущее состояние тестирования
    */
-  private _state: number = TESTING_STATE.NOT_STARTED;
+  private _state: number = QUIZ_STATE.NOT_STARTED;
 
   /**
    * Идентификатор теста
@@ -108,35 +108,35 @@ export class QuizControllerService {
    * Тест начат
    */
   get isStarted(): boolean {
-    return this._state === TESTING_STATE.STARTED;
+    return this._state === QUIZ_STATE.STARTED;
   }
 
   /**
    * Тест успешно завершен
    */
   get isCompleted(): boolean {
-    return this._state === TESTING_STATE.COMPLETED;
+    return this._state === QUIZ_STATE.COMPLETED;
   }
 
   /**
    * Тест завершился по истечению времени
    */
   get isOutOfTime(): boolean {
-    return this._state === TESTING_STATE.TIME_IS_OVER;
+    return this._state === QUIZ_STATE.TIME_IS_OVER;
   }
 
   /**
    * В тесте нет вопросов
    */
   get isEmpty(): boolean {
-    return this._state === TESTING_STATE.EMPTY;
+    return this._state === QUIZ_STATE.EMPTY;
   }
 
   /**
    * Тест был завершен
    */
   get isFinished(): boolean {
-    return this.isCompleted || this._state === TESTING_STATE.TIME_IS_OVER;
+    return this.isCompleted || this._state === QUIZ_STATE.TIME_IS_OVER;
   }
 
   /**
@@ -170,7 +170,7 @@ export class QuizControllerService {
    */
   set questions(questions: Question[]) {
     if (!questions || !questions.length) {
-      this._state = TESTING_STATE.EMPTY;
+      this._state = QUIZ_STATE.EMPTY;
       return;
     }
 
@@ -207,7 +207,7 @@ export class QuizControllerService {
       this._updateFirstTestStartedTime();
       this._key = key;
       this._name = name;
-      this._state = TESTING_STATE.STARTED;
+      this._state = QUIZ_STATE.STARTED;
       this.router.navigate(['test', key]);
     }
   }
@@ -220,7 +220,7 @@ export class QuizControllerService {
 
     // если вышло время, ничего считать не надо
     if (timeIsOver) {
-      this._state = TESTING_STATE.TIME_IS_OVER;
+      this._state = QUIZ_STATE.TIME_IS_OVER;
       this.router.navigate(['results']);
       return;
     }
@@ -234,7 +234,7 @@ export class QuizControllerService {
 
     this._result = Math.round(100 * totals / this._questions.length);
     this._correctAnswersCount = totals;
-    this._state = TESTING_STATE.COMPLETED;
+    this._state = QUIZ_STATE.COMPLETED;
     this.router.navigate(['results']);
   }
 
@@ -256,7 +256,7 @@ export class QuizControllerService {
     this._questions = null;
     this._result = null;
     this._time = null;
-    this._state = TESTING_STATE.NOT_STARTED;
+    this._state = QUIZ_STATE.NOT_STARTED;
   }
 
   updateUserQuizState(): void {

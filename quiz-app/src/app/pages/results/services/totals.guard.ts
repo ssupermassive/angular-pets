@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { QuizControllerService, TESTING_STATE } from 'src/app/core';
+import { QuizControllerService } from 'src/app/core';
 
 /**
  * Гард, определяющий, может ли юзер попасть на страницу с итогами тестирования

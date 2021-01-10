@@ -1,2 +1,1 @@
-export const ALL_CATEGORIES_KEY = null;
-export const FT_FIRST_VISIT = 'FT_FIRST_VISIT';
+export const WITHOUT_SUBCATEGORY_ITEM_KEY = -1;

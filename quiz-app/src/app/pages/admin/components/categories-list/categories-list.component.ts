@@ -8,7 +8,6 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef
 } from '@angular/core';
-import { constants } from 'src/app/core';
 import { CategoriesService } from 'src/app/services/categories';
 import { ICategory } from 'src/app/models/categories';
 import {
@@ -43,7 +42,7 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
    */
   @Output() categoryChanged: EventEmitter<void>;
 
-  markedKey: number = constants.ALL_CATEGORIES_KEY;
+  markedKey: number = null;
 
   _dataSource: ICategory[];
 

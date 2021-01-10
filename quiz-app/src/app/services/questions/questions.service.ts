@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { Question, IQuestion } from 'src/app/models/questions';
 import { IQuestionsQueryFilter } from 'src/app/models/questions/IQuestionsQueryFIlter';
 import { QuestionsStorageService } from './questions-storage.service';
+import { WITHOUT_SUBCATEGORY_ITEM_KEY } from 'src/app/core/constants';
 
 /**
  * Сервис, отвечающий за работу с вопросами
@@ -75,7 +76,7 @@ export class QuestionsService {
 
     if ('category' in filter && filter.category !== null) {
 
-      if (filter.category === -1) {
+      if (filter.category === WITHOUT_SUBCATEGORY_ITEM_KEY) {
         data = data.filter(
           (q: IQuestion) => !q.subcategory
         );
@@ -135,4 +136,3 @@ export class QuestionsService {
     return of(true);
   }
 }
-

@@ -1,15 +1,5 @@
 
-import {TESTING_STATE} from './quiz/TestingState';
-import {QuizControllerService} from './quiz/quiz-controller.service';
-import {LocalStorageService} from './local-storage.service';
-import {DataStorageService} from './data-storage.service';
-
-import * as constants from './constants';
-
-export {
-    TESTING_STATE,
-    QuizControllerService,
-    LocalStorageService,
-    DataStorageService,
-    constants
-}
+export {QUIZ_STATE} from './quiz/QuizState.enum';
+export {QuizControllerService} from './quiz/quiz-controller.service';
+export {LocalStorageService} from './local-storage.service';
+export {DataStorageService} from './data-storage.service';

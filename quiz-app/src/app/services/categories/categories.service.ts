@@ -4,6 +4,7 @@ import { ICategory, ICategoryQueryFilter } from 'src/app/models/categories';
 import { CategoriesStorageService } from './categories-storage.service';
 import { clone } from 'src/app/core/utils';
 import { DomSanitizer } from '@angular/platform-browser';
+import { WITHOUT_SUBCATEGORY_ITEM_KEY } from 'src/app/core/constants';
 
 const DEFAULT_IMAGE = '../images/tile_img_default.png';
 
@@ -103,7 +104,7 @@ export class CategoriesService {
         }],
         ...data,
         ...[{
-          id: -1,
+          id: WITHOUT_SUBCATEGORY_ITEM_KEY,
           name: 'Без подкатегорий',
           parent: null,
           itemType: false,
