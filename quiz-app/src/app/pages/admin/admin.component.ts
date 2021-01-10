@@ -24,7 +24,7 @@ export class AdminComponent implements OnInit {
 
   tabs: IAdminTab[] = [
     { route: '/categories', name: 'По категориям' },
-    { route: '/feedback', name: 'Ошибки' }
+    { route: '/feedback', name: 'Обратная связь' }
   ];
 
   selectedIndex: number;

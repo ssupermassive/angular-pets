@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { of, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { IFeedback } from 'src/app/models/feedback/IFeedback.model';
-
-const API_URL = `${location.origin}/api/v1/error_reports/`;
+import { FeedbackStorageService } from './feedback-storage.service';
 
 /**
  * Сервис для работы с обратной связью
@@ -12,28 +10,39 @@ const API_URL = `${location.origin}/api/v1/error_reports/`;
 @Injectable()
 export class FeedbackService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private storage: FeedbackStorageService) { }
 
   /**
    * Создает сообщение об ошибке
    * @param report;
    */
-  create(report: IFeedback): Observable<void> {
-    return this.http.post(API_URL, report).pipe(map(() => undefined));
+  create(feedback: IFeedback): Observable<IFeedback> {
+
+    const newFeedback = { ...feedback };
+    newFeedback.id = Date.now();
+    const data = [newFeedback, ...this.storage.data]
+
+    this.storage.updateData(data);
+    return of(newFeedback);
   }
 
   /**
    * Удаляет сообщение об ошибке
    * @param id;
    */
-  remove(id: number): Observable<void> {
-    return this.http.delete(`${API_URL}${id}`).pipe(map(() => undefined));
+  remove(id: number): Observable<boolean> {
+    const data = this.storage.data.filter((item: IFeedback) => {
+      return item.id !== id;
+    });
+
+    this.storage.updateData(data);
+    return of(true);
   }
 
   /**
    * Получения списка сообщений об ошибках
    */
   getList(): Observable<IFeedback[]> {
-    return this.http.get(API_URL).pipe(map((result: IFeedback[]) => result));
+    return of(this.storage.data);
   }
 }

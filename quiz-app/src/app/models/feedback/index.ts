@@ -1,0 +1,1 @@
+export {IFeedback} from './IFeedback.model';
