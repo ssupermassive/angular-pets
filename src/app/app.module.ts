@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ENV_TOKEN, ENVIRONMENT } from 'src/environments';
 
 @NgModule({
   declarations: [
@@ -32,6 +32,10 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
           xml: () => import('highlight.js/lib/languages/xml')
         }
       }
+    },
+    {
+      provide: ENV_TOKEN,
+      useFactory: () => ENVIRONMENT
     }
   ],
   bootstrap: [AppComponent]

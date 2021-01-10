@@ -1,12 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { ICategory, ICategoryQueryFilter } from 'src/app/models/categories';
 import { CategoriesStorageService } from './categories-storage.service';
 import { clone } from 'src/app/core/utils';
 import { DomSanitizer } from '@angular/platform-browser';
 import { WITHOUT_SUBCATEGORY_ITEM_KEY } from 'src/app/core/constants';
-
-const DEFAULT_IMAGE = '../images/tile_img_default.png';
+import { IEnvironment, ENV_TOKEN } from 'src/environments';
 
 /**
  * Сервис для работы с категориями
@@ -18,7 +17,10 @@ const DEFAULT_IMAGE = '../images/tile_img_default.png';
 })
 export class CategoriesService {
 
-  constructor(private storage: CategoriesStorageService, private domSanitizer: DomSanitizer) {}
+  constructor(
+    private storage: CategoriesStorageService, 
+    private domSanitizer: DomSanitizer,
+    @Inject(ENV_TOKEN) private environment: IEnvironment) {}
 
   /**
    * Чтения категории по её идентификатору
@@ -121,7 +123,7 @@ export class CategoriesService {
     }
 
     return of(data.map((item: ICategory) => {
-      item.image = this.domSanitizer.bypassSecurityTrustResourceUrl((item.image || DEFAULT_IMAGE) as string);
+      item.image = this.domSanitizer.bypassSecurityTrustResourceUrl((item.image || `${this.environment.imagesPath}/tile_img_default.png`) as string);
       return item;
     }));
   }

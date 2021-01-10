@@ -10,7 +10,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build-for-gh": "ng build --prod --base-href \"https://supermassive.github.io/angular-quiz-app\""
+    "build-for-gh": "ng build --prod --base-href \"https://ssupermassive.github.io/angular-quiz-app/\"",
+    "gh-pages": "ngh --dir dist/quiz-app --no-silent"
   },
   "private": true,
   "dependencies": {
