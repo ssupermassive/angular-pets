@@ -10,11 +10,11 @@
           [disabled]="!_newQuestionForm.valid">
           {{ submitButtonCaption }}
         </button>
-        <mat-icon *ngIf="question && question.id && !question.publish && !service"
+        <mat-icon *ngIf="question && question.id && !question.publish"
           class="ft-QuestionDialog__header-button ft-secondary" title="Опубликовать" (click)="publishChange(true)">
           check_circle_outline
         </mat-icon>
-        <mat-icon *ngIf="question && question.id && question.publish && !service"
+        <mat-icon *ngIf="question && question.id && question.publish"
           class="ft-QuestionDialog__header-button ft-success" title="Снять с публикации" (click)="publishChange(false)">
           check_circle
         </mat-icon>

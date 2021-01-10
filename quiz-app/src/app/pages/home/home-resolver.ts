@@ -13,6 +13,6 @@ export class HomeResolver implements Resolve<any> {
   constructor(private categoriesService: CategoriesService) { }
 
   resolve(): Observable<any> {
-    return this.categoriesService.getList({itemType: true});
+    return this.categoriesService.getList({itemType: true, publish: true});
   }
 }

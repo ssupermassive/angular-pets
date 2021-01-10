@@ -58,7 +58,7 @@ export class QuestionsListComponent implements OnInit, OnChanges, OnDestroy {
       title: 'Опубликовать',
       handler: this._publishChange.bind(this, true),
       visibilityCallback: (item: Question) => {
-        return !item.publish && !item.service;
+        return !item.publish;
       }
     },
     {
@@ -67,7 +67,7 @@ export class QuestionsListComponent implements OnInit, OnChanges, OnDestroy {
       title: 'Снять с публикации',
       handler: this._publishChange.bind(this, false),
       visibilityCallback: (item: Question) => {
-        return item.publish && !item.service;
+        return item.publish;
       }
     },
     {

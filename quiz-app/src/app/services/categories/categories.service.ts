@@ -78,7 +78,6 @@ export class CategoriesService {
    */
   getList(filter: ICategoryQueryFilter = {}): Observable<ICategory[]> {
 
-    // ToDo тут нужно глубокое копирование
     let data = clone(this.storage.data, true);
 
     if ('itemType' in filter) {
@@ -149,38 +148,5 @@ export class CategoriesService {
 
     this.storage.updateData(data);
     return of(true);
-  }
-
-  /**
-   * Преобразовывает категорию в узел
-   * @param id
-   */
-  convertToNode(id: number): Observable<void> {
-    const data = this.storage.data.map((c: ICategory) => {
-      if(c.id === id) {
-        c.itemType = true;
-      }
-      return c;
-    });
-
-    this.storage.updateData(data);
-    return of();
-  }
-
-  /**
-   * Устанавливает категории нового родителя
-   * @param id
-   * @param parent
-   */
-  changeParent(id: number, parent: number): Observable<void> {
-    const data = this.storage.data.map((c: ICategory) => {
-      if(c.id === id) {
-        c.parent = parent;
-      }
-      return c;
-    });
-
-    this.storage.updateData(data);
-    return of();
   }
 }

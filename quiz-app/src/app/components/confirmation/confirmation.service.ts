@@ -10,8 +10,7 @@ enum CONFIRMATION_TYPE {
 
 interface IConfirmationDialogOptions {
   type: string,
-  message: string,
-  status?: string; // ToDo 3.9: дореализовать
+  message: string
 }
 
 @Injectable()
@@ -19,7 +18,6 @@ export class ConfirmationService {
 
   constructor(private matDialog: MatDialog) { }
 
-  // ToDo 3.9: дореализовать
   open(options: IConfirmationDialogOptions): Observable<boolean> {
     return Observable.create((observer) => {
       const dialogRef = this.matDialog.open(ConfirmationDialogComponent, {

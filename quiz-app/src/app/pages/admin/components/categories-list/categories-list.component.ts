@@ -53,25 +53,7 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
       iconStyle: 'primary',
       handler: this._addSubcategory.bind(this),
       isVisible: (item: ICategory) => {
-        return item.itemType && !item.service;
-      }
-    },
-    {
-      icon: 'folder',
-      title: 'Преобразовать в группу',
-      iconStyle: 'primary',
-      handler: this.convertToGroup.bind(this),
-      isVisible: (item: ICategory) => {
-        return !item.itemType && !item.parent && !item.service;
-      }
-    },
-    {
-      icon: 'move_to_inbox',
-      title: 'Переместить',
-      iconStyle: 'primary',
-      handler: this.changeParent.bind(this),
-      isVisible: (item: ICategory) => {
-        return !item.itemType && !item.service;
+        return item.itemType;
       }
     },
     {
@@ -80,7 +62,7 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
       title: 'Опубликовать',
       handler: this._publishChange.bind(this, true),
       isVisible: (item: ICategory) => {
-        return !item.publish && !item.service;
+        return !item.publish;
       }
     },
     {
@@ -89,7 +71,7 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
       title: 'Снять с публикации',
       handler: this._publishChange.bind(this, false),
       isVisible: (item: ICategory) => {
-        return item.publish && !item.service;
+        return item.publish;
       }
     },
     {
@@ -247,20 +229,6 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
     );
   }
 
-  /* *
-   * Смена родительской категории
-   */
-  changeParent(item: ICategory): void {
-    this._subscription.add(
-      this.categorySelectorOpener.open({ itemType: true, flatList: true }).subscribe((selected: ICategory) => {
-        this.categoriesService.changeParent(item.id, selected.id).subscribe(() => {
-          this.reload();
-          this.categoryChanged.emit();
-        });
-      })
-    );
-  }
-
   reload(): void {
     this._subscription.add(
       this.categoriesService.getAdminList().subscribe((result) => {
@@ -283,18 +251,6 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
    */
   private _addSubcategory(item: ICategory): void {
     this._openCategoryDialog({ parent: item.id } as ICategory);
-  }
-
-  /**
-   * Преобразование категории в группу категорий
-   * @param item;
-   */
-  convertToGroup(item: ICategory): void {
-    this._subscription.add(
-      this.categoriesService.convertToNode(item.id).subscribe(() => {
-        this.reload();
-      })
-    );
   }
 
   private _findItem(id: number): { index: number, item: ICategory } {

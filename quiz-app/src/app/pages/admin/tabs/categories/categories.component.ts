@@ -131,16 +131,4 @@ export class CategoriesComponent implements OnInit, OnDestroy {
   _categoryChangedHandler(): void {
     this.questionsList.reload();
   }
-
-  /**
-   * ToDo 3.9: прячу до востребования. Удалить совсем если не пригодится
-   * Массовое изменение категорий
-   */
-  /*   _changeCategory(): void {
-      this.categorySelectorOpener.open().subscribe((item: ICategory) => {
-        if (item) {
-          this.questionsList.changeCategory(item.id);
-        }
-      });
-    } */
 }

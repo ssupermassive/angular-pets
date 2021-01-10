@@ -79,7 +79,7 @@ export class SelectorLinkComponent implements ControlValueAccessor  {
   }
   
   registerOnTouched(fn: any): void {
-    // ToDo 3.9
+    // ToDo
   }
 
   /**

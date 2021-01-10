@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { QuestionsService } from 'src/app/services/questions';
 import { CategoriesService } from 'src/app/services/categories';
 
-// ToDo 3.9: А нужен ли вообще этот сервис
 @Injectable()
 export class AdminService {
 

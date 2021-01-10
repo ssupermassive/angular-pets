@@ -25,11 +25,6 @@ export class CategoryDialogComponent implements OnInit {
   _form: FormGroup;
 
   /**
-   * Идентификатор прикрепленного изображения
-   */
-  _imageKey: number;
-
-  /**
    * Идентификатор родительской категории
    */
   parentCategoryKey: number = null;
@@ -52,7 +47,6 @@ export class CategoryDialogComponent implements OnInit {
 
     const name = category ? category.name : '';
     const description = category ? category.description : '';
-    this._imageKey = category ? category.imageKey : null;
     this.parentCategoryKey = category ? category.parent : null;
 
     this.dialogTitle = !!this.parentCategoryKey ? 'Категория' : 'Группа категорий';
@@ -75,13 +69,11 @@ export class CategoryDialogComponent implements OnInit {
       const category = this.data.category;
       const name = this._form.get('name').value;
       const description = this._form.get('description').value;
-      const imageKey = this._imageKey;
 
       // если это редактирование, то попадем сюда
-      if (category) {
+      if (category?.id) {
         category.name = name;
         category.description = description;
-        category.imageKey = imageKey;
         this._subscription.add(
           this.categoriesService.update(category).subscribe(() => {
             this.dialogRef.close(category);
@@ -94,7 +86,6 @@ export class CategoryDialogComponent implements OnInit {
         id: null,
         name,
         description,
-        imageKey,
         itemType: !this.parentCategoryKey,
         parent: this.parentCategoryKey
       };

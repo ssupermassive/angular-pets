@@ -6,7 +6,7 @@ import { BaseRowComponent } from '../base-row/base-row.component';
   selector: 'ft-tree-row',
   templateUrl: './tree-row.component.html',
   styleUrls: ['./tree-row.component.scss'],
-  // ToDo 3.9: дефолтное обнаружение изменений, т.к. при обновлении сорса в дереве не пересоздается treeControl,
+  // ToDo дефолтное обнаружение изменений, т.к. при обновлении сорса в дереве не пересоздается treeControl,
   // что бы сохранить развернутые узлы. Надо придумать что с этим делать.
   changeDetection: ChangeDetectionStrategy.Default
 })
