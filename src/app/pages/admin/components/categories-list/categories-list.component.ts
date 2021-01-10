@@ -17,6 +17,7 @@ import { ConfirmationService } from 'src/app/components/confirmation';
 import { DialogOpenerService } from 'src/app/components/opener';
 import { Subscription } from 'rxjs';
 import { CategorySelectorOpenerService } from 'src/app/category';
+import { WITHOUT_SUBCATEGORY_ITEM_KEY} from 'src/app/core/constants';
 
 
 @Component({
@@ -62,7 +63,7 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
       title: 'Опубликовать',
       handler: this._publishChange.bind(this, true),
       isVisible: (item: ICategory) => {
-        return !item.publish;
+        return !item.publish && item.id && item.id !== WITHOUT_SUBCATEGORY_ITEM_KEY;
       }
     },
     {
@@ -71,7 +72,7 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
       title: 'Снять с публикации',
       handler: this._publishChange.bind(this, false),
       isVisible: (item: ICategory) => {
-        return item.publish;
+        return item.publish && item.id && item.id !== WITHOUT_SUBCATEGORY_ITEM_KEY;
       }
     },
     {
