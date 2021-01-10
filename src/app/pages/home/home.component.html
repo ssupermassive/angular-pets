@@ -1,0 +1,60 @@
+<ft-page-header [class.ft-HomePage__header-shadow]="_contentScrolled" [buttonsConfig]="{userButton: true}"
+  class="ft-HomePage__header ft-flex-shrink-0 ft-flex-grow-0"></ft-page-header>
+<div class="ft-HomePage__content">
+  <div class="ft-HomePage__welcome ft-flex-grow-0 ft-flex-shrink-0">
+    <div class="ft-HomePage__backgroungImage ft-flexbox ft-flex-column ft-justify-content-center ft-align-items-center">
+      <h1 class="ft-HomePage__welcome-firstTitle" [@animateTitle]="animateState">
+        Добро пожаловать на QuizApp
+      </h1>
+      <h3 class="ft-HomePage__welcome-secondTitle" [@animateTitle]="animateState">
+        Сборник тестов по Web - разработке
+      </h3>
+      <button class="ft-HomePage__welcome-begin" (click)="beginButtonClick()"
+        [@animateBeginButton]="animateState">Начать</button>
+    </div>
+    <div class="ft-HomePage__backgroung ft-HomePage__backgroungGradient"></div>
+  </div>
+  <div #tests class="ft-HomePage__tests-title">
+    <span *ngIf="attemptsCount">Доступные тесты</span>
+    <div *ngIf="!attemptsCount" class="ws-flexbox">
+      Повторное тестирование будет доступно через
+      <ft-timer (timeIsOver)="updateTestsAvailableState()" class="ft-HomePage__tests-timer" [time]="quizWillBeAvailableTime" [useColorState]="false"
+        timeMask="HH:mm:ss" fontSize="36px">
+      </ft-timer>
+    </div>
+  </div>
+  <div class="ft-HomePage__tests-attempts">
+    <div>Осталось попыток: {{ attemptsCount }}</div>
+  </div>
+  <ft-tile-view (tileClick)="_beginTest($event)" class="ft-HomePage__tileView" [items]="_categories"
+    [tileTemplate]="tileTemplate" [tileHovered]="!!attemptsCount">
+    <ng-template #tileTemplate let-item="item">
+      <div class="ft-HomePage__tileView-tileTemplate">
+        <img width="320" height="200"
+          [src]="item.image"/>
+        <div class="ft-HomePage__tileView-tileTemplate-info">
+          <div class="ft-HomePage__tileView-tileTemplate-name">
+            {{ item.name }}
+          </div>
+          <div class="ft-HomePage__tileView-tileTemplate-description ft-overflow-hidden" title="{{ item.description }}">
+            {{ item.description }}
+          </div>
+          <div class="ft-HomePage__tileView-tileTemplate-categories ft-flexbox ft-flex-wrap ft-overflow-hidden">
+            <div class="ft-HomePage__tileView-tileTemplate-category">
+              {{ item.name }}
+            </div>
+          </div>
+          <div class="ft-HomePage__tileView-tileTemplate-metrics ft-flexbox ft-justify-content-between">
+            <div>
+              Вопросов: 30
+            </div>
+            <div>
+              Время: 30 мин
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </ft-tile-view>
+  <ft-page-footer></ft-page-footer>
+</div>
