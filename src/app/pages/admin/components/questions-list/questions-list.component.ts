@@ -11,7 +11,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef
 } from '@angular/core';
-import {Subscription} from 'rxjs';
+import { Subscription } from 'rxjs';
 import {
   QuestionDialogOpenerService,
   IQuestionEditResult
@@ -116,10 +116,12 @@ export class QuestionsListComponent implements OnInit, OnChanges, OnDestroy {
       this.questionsService.changePublish(item.id, publish).subscribe(() => {
         this._dataSource = this._dataSource.map((sourceItem: Question) => {
           if (sourceItem.id === item.id) {
-            return {
-              ...sourceItem,
-              ...{ publish }
-            } as Question;
+            return new Question(
+              {
+                ...sourceItem,
+                ...{ publish }
+              }
+            );
           }
           return sourceItem;
         });
@@ -167,7 +169,7 @@ export class QuestionsListComponent implements OnInit, OnChanges, OnDestroy {
    */
   _itemClick(item: Question): void {
     this._subscription.add(
-      this.questionDialog.open({ key: item.id}).subscribe((result: IQuestionEditResult) => {
+      this.questionDialog.open({ key: item.id }).subscribe((result: IQuestionEditResult) => {
         this.reload();
       })
     );
