@@ -1,0 +1,32 @@
+.ft-TileView__tileContainer {
+  max-width: 31%;
+  margin: 8px;
+}
+.ft-TileView__tile {
+  border-radius: 12px;
+  background-color: white;
+  width: 100%;
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.5);
+}
+.ft-TileView__tile-hovered {
+  cursor: pointer;
+}
+.ft-TileView__tile-hovered:hover {
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.7);
+}
+
+@media (max-width: 1350px) {
+  .ft-TileView__tileContainer {
+    max-width: 31%;
+  }
+}
+@media (max-width: 1024px) {
+  .ft-TileView__tileContainer {
+    max-width: 50%;
+  }
+}
+@media (max-width: 1024px) {
+  .ft-TileView__tileContainer {
+    max-width: 100%;
+  }
+}
