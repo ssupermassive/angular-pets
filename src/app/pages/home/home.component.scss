@@ -125,6 +125,11 @@
         margin: 0 12px;
       }
 
+      &-img {
+        max-width: 320px;
+        width: 100%;
+      }
+
       &-name,
       &-description,
       &-categories,
